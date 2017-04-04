@@ -1,0 +1,37 @@
+MM 
+MM(MEMORY MODIFY)is used to display memory and,	as required, modify 
+data or enter new data. The size (byte, word, long word) controls the 
+number of bytes displayed for each address.
+MS
+The MS (Memory Set) command alters memmory by setting data into the
+address specified. The data can take the form of ASCII string or
+hexadecimal data.
+BF
+The Block Fill (BF) command fills memory starting with the word
+boundary <address1> through <address2>. Both <address1> and <address2> must
+be even	addresses. This command only fills with a word-size (2 bytes) data
+pattern. If an entire word-size data pattern is not entered, the pattern is 
+right justified and leading zeros are inserted.
+BMOV
+The Block Move (BMOV) command is used to move (duplicate) blocks of 
+memory from one area to another.
+BTST
+The Block Test (BT) command is a destructive test of a block of 
+memory beginning at <address1> through <address2>. If this test
+runs to completio without detecting errors, and display a message
+that no error was detected. If memory problems are found, a message is
+displayed indicating	the address, the data stored, and the data read
+of the failing memory.
+BSCH
+The BSCH (Block	Search)	command	is used	to search a literal string in
+a memory block starting at <address1> through <address2> both inclusive.
+In BSCH command, if search finds matching data, the data and address(es)
+must be displayed.
+GO
+The GO command is used to start execution from a given address.
+DF
+The Display Formatted Registers	(DF) command is	used to	display	
+the MC68000 processor registers. This command should display current
+PC, SR,	US, SS and D, A	registers.
+EXIT
+The EXIT command terminates/exits your MONITOR program

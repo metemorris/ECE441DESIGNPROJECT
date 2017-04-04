@@ -6,28 +6,267 @@
 * To-Do      : exit prompt when null character read
 *-----------------------------------------------------------
     ORG    $1000
-    
+*COMMAND LINE PROMPT*  
 PROMPT:   
     DC.B 'MONITOR441> '
     DC.B 0
 
-    
 NOPROMPT:
     DC.B 'WRONG ENTRY. TYPE HELP FOR HELP'
     DC.B 0
 
+
+*MENU OPTIONS LOOKUP*
 HELPPROMPT:
     DC.B 'HELP'
+    DC.B 0    
+MDSPPROMPT:
+    DC.B 'MDSP'
     DC.B 0
-    
+SORTWPROMPT:
+    DC.B 'SORTW'
+    DC.B 0
+MMPROMPT:
+    DC.B 'MM'
+    DC.B 0
+MSPROMPT:
+    DC.B 'MS'
+    DC.B 0
+BFPROMPT:
+    DC.B 'BF'
+    DC.B 0
+BMOVPROMPT:
+    DC.B 'BMOV'
+    DC.B 0
+BTSTPROMPT:
+    DC.B 'BMOV'
+    DC.B 0
+BSCHPROMPT:
+    DC.B 'BMOV'
+    DC.B 0
+GOPROMPT:
+    DC.B 'BMOV'
+    DC.B 0
+DFPROMPT:
+    DC.B 'BMOV'
+    DC.B 0
 EXITPROMPT:
     DC.B 'EXIT'
     DC.B 0
-    
+
+*HELP LINE TO BE PRINTED OUT*  
 HELP:
-    DC.B 'THIS IS HELP FILL THIS UP'
+    DC.B 'HELP'
+    DC.B $A  ;NEW LINE
+    DC.B 'DISPLAYS ALL AVAILABE COMMANDS AND USAGE DESCRIPTION '
+    DC.B $D  ;CARRIAGE RETURN
+    DC.B $A
+    DC.B $A
+    DC.B 'MDSP'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 ;TAB
+    DC.B 'The MDSP(MemoryDisplay)command outputs the address and memory'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'contents from <address1> to <address2>. '
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'The MDSP(Memory Display) command ALSO outputs the address and'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'memory contents from <address1> to <address1+16bytes>.' 
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'SORTW'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The SORT command sorts a block of memory. The starting address and the'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'ending address <address2> of the memory block are specified in the command.'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'The order(A or D) specifies whether the list is sorted in Ascending'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'or Descending order.(The size of the data to be sorted is a word)'
+    
+    
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'MM'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'MM(MEMORY MODIFY)is used to display memory and,	as required, modify'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'data or enter new data. The size (byte, word, long word) controls the'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'number of bytes displayed for each address.'    
+    
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'MS'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The MS (Memory Set) command alters memmory by setting data into the'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'address specified. The data can take the form of ASCII string or'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'hexadecimal data.'
+
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'BF'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The Block Fill (BF) command fills memory starting with the word'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'boundary <address1> through <address2>. Both <address1> and <address2> must'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'be even	addresses. This command only fills with a word-size (2 bytes) data'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'pattern. If an entire word-size data pattern is not entered, the pattern is '
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'right justified and leading zeros are inserted.'
+
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'BMOV'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The Block Move (BMOV) command is used to move (duplicate) blocks of'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'memory from one area to another.'
+
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'BTST'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The Block Test (BT) command is a destructive test of a block of'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'memory beginning at <address1> through <address2>. If this test'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'runs to completion without detecting errors, and display a message'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'that no error was detected. If memory problems are found, a message is'    
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'displayed indicating	the address, the data stored, and the data read'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'of the failing memory.'
+
+ 
+ 
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'BSCH'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The BSCH (Block	Search)	command	is used	to search a literal string in'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'a memory block starting at <address1> through <address2> both inclusive.'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'In BSCH command, if search finds matching data, the data and address(es)'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'must be displayed.' 
+
+
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'GO'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The GO command is used to start execution from a given address.'
+
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'DF'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The Display Formatted Registers(DF) command is used to display'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'the MC68000 processor registers. This command should display current'
+    DC.B $D  
+    DC.B $A
+    DC.B $9
+    DC.B 'PC, SR,	US, SS and D, A	registers.'
+    
+    DC.B $D  
+    DC.B $A
+    DC.B $A
+    DC.B 'EXIT'
+    DC.B $D  
+    DC.B $A
+    DC.B $9 
+    DC.B 'The EXIT command terminates/exits your MONITOR program'
+
+ 
     DC.B 0
-    ORG    $1200
+
+
+    
+    ORG    $2000
     
 START:                  ; first instruction of program
 
@@ -41,16 +280,17 @@ pSTART
     TRAP #15
     
     
-    
+    *COMPARING INPUT TO THE MENU ITEMS*
     MOVE.L #HELPPROMPT,A0
     CLR.L D3 ;COUNTER FOR REVERSING A1 TO USER INPUT
 COMPAREHELP
     ADD.L #1,D3
     CMPM.B (A0)+,(A1)+
     BNE COMPAREEXIT
-    CMPI.B #00,-1(A0)
+    CMPI.B #00,-1(A0)   ;CHECK IF THE BYTE JUST COMPARED WAS NULL TERMINATOR
     BNE COMPAREHELP
     BSR HELPFUNCTION 
+
     
 COMPAREEXIT
     SUB.L D3,A1
@@ -66,7 +306,7 @@ COMPAREEXIT2
     
     
     
-    
+*WHEN INPUT DOESNT FIT THE CRITERIA*    
 FAIL
     MOVEA.L #NOPROMPT,A1     
     MOVE.B #13,D0
@@ -92,6 +332,9 @@ EXITFUNCTION
 
 
     END    START        ; last line of source
+
+
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

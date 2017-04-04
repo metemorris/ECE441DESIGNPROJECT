@@ -1,0 +1,369 @@
+00002000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.15.04
+Created On: 3/14/2017 1:02:20 PM
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      : Design Project v1
+00000000                             3  * Written by : Mete Morris
+00000000                             4  * Date       : 03.11.2017
+00000000                             5  * Description: Prints out prompt, does help(not finished) and exit
+00000000                             6  * To-Do      : exit prompt when null character read
+00000000                             7  *-----------------------------------------------------------
+00001000                             8      ORG    $1000
+00001000                             9  *COMMAND LINE PROMPT*  
+00001000                            10  PROMPT:   
+00001000= 4D 4F 4E 49 54 4F ...     11      DC.B 'MONITOR441> '
+0000100C= 00                        12      DC.B 0
+0000100D                            13  
+0000100D                            14  NOPROMPT:
+0000100D= 57 52 4F 4E 47 20 ...     15      DC.B 'WRONG ENTRY. TYPE HELP FOR HELP'
+0000102C= 00                        16      DC.B 0
+0000102D                            17  
+0000102D                            18  
+0000102D                            19  *MENU OPTIONS LOOKUP*
+0000102D                            20  HELPPROMPT:
+0000102D= 48 45 4C 50               21      DC.B 'HELP'
+00001031= 00                        22      DC.B 0    
+00001032                            23  MDSPPROMPT:
+00001032= 4D 44 53 50               24      DC.B 'MDSP'
+00001036= 00                        25      DC.B 0
+00001037                            26  SORTWPROMPT:
+00001037= 53 4F 52 54 57            27      DC.B 'SORTW'
+0000103C= 00                        28      DC.B 0
+0000103D                            29  MMPROMPT:
+0000103D= 4D 4D                     30      DC.B 'MM'
+0000103F= 00                        31      DC.B 0
+00001040                            32  MSPROMPT:
+00001040= 4D 53                     33      DC.B 'MS'
+00001042= 00                        34      DC.B 0
+00001043                            35  BFPROMPT:
+00001043= 42 46                     36      DC.B 'BF'
+00001045= 00                        37      DC.B 0
+00001046                            38  BMOVPROMPT:
+00001046= 42 4D 4F 56               39      DC.B 'BMOV'
+0000104A= 00                        40      DC.B 0
+0000104B                            41  BTSTPROMPT:
+0000104B= 42 4D 4F 56               42      DC.B 'BMOV'
+0000104F= 00                        43      DC.B 0
+00001050                            44  BSCHPROMPT:
+00001050= 42 4D 4F 56               45      DC.B 'BMOV'
+00001054= 00                        46      DC.B 0
+00001055                            47  GOPROMPT:
+00001055= 42 4D 4F 56               48      DC.B 'BMOV'
+00001059= 00                        49      DC.B 0
+0000105A                            50  DFPROMPT:
+0000105A= 42 4D 4F 56               51      DC.B 'BMOV'
+0000105E= 00                        52      DC.B 0
+0000105F                            53  EXITPROMPT:
+0000105F= 45 58 49 54               54      DC.B 'EXIT'
+00001063= 00                        55      DC.B 0
+00001064                            56  
+00001064                            57  *HELP LINE TO BE PRINTED OUT*  
+00001064                            58  HELP:
+00001064= 48 45 4C 50               59      DC.B 'HELP'
+00001068= 0A                        60      DC.B $A  ;NEW LINE
+00001069= 44 49 53 50 4C 41 ...     61      DC.B 'DISPLAYS ALL AVAILABE COMMANDS AND USAGE DESCRIPTION '
+0000109E= 0D                        62      DC.B $D  ;CARRIAGE RETURN
+0000109F= 0A                        63      DC.B $A
+000010A0= 0A                        64      DC.B $A
+000010A1= 4D 44 53 50               65      DC.B 'MDSP'
+000010A5= 0D                        66      DC.B $D  
+000010A6= 0A                        67      DC.B $A
+000010A7= 09                        68      DC.B $9 ;TAB
+000010A8= 54 68 65 20 4D 44 ...     69      DC.B 'The MDSP(MemoryDisplay)command outputs the address and memory'
+000010E5= 0D                        70      DC.B $D  
+000010E6= 0A                        71      DC.B $A
+000010E7= 09                        72      DC.B $9
+000010E8= 63 6F 6E 74 65 6E ...     73      DC.B 'contents from <address1> to <address2>. '
+00001110= 0D                        74      DC.B $D  
+00001111= 0A                        75      DC.B $A
+00001112= 09                        76      DC.B $9
+00001113= 54 68 65 20 4D 44 ...     77      DC.B 'The MDSP(Memory Display) command ALSO outputs the address and'
+00001150= 0D                        78      DC.B $D  
+00001151= 0A                        79      DC.B $A
+00001152= 09                        80      DC.B $9
+00001153= 6D 65 6D 6F 72 79 ...     81      DC.B 'memory contents from <address1> to <address1+16bytes>.' 
+00001189= 0D                        82      DC.B $D  
+0000118A= 0A                        83      DC.B $A
+0000118B= 0A                        84      DC.B $A
+0000118C= 53 4F 52 54 57            85      DC.B 'SORTW'
+00001191= 0D                        86      DC.B $D  
+00001192= 0A                        87      DC.B $A
+00001193= 09                        88      DC.B $9 
+00001194= 54 68 65 20 53 4F ...     89      DC.B 'The SORT command sorts a block of memory. The starting address and the'
+000011DA= 0D                        90      DC.B $D  
+000011DB= 0A                        91      DC.B $A
+000011DC= 09                        92      DC.B $9
+000011DD= 65 6E 64 69 6E 67 ...     93      DC.B 'ending address <address2> of the memory block are specified in the command.'
+00001228= 0D                        94      DC.B $D  
+00001229= 0A                        95      DC.B $A
+0000122A= 09                        96      DC.B $9
+0000122B= 54 68 65 20 6F 72 ...     97      DC.B 'The order(A or D) specifies whether the list is sorted in Ascending'
+0000126E= 0D                        98      DC.B $D  
+0000126F= 0A                        99      DC.B $A
+00001270= 09                       100      DC.B $9
+00001271= 6F 72 20 44 65 73 ...    101      DC.B 'or Descending order.(The size of the data to be sorted is a word)'
+000012B2                           102      
+000012B2                           103      
+000012B2= 0D                       104      DC.B $D  
+000012B3= 0A                       105      DC.B $A
+000012B4= 0A                       106      DC.B $A
+000012B5= 4D 4D                    107      DC.B 'MM'
+000012B7= 0D                       108      DC.B $D  
+000012B8= 0A                       109      DC.B $A
+000012B9= 09                       110      DC.B $9 
+000012BA= 4D 4D 28 4D 45 4D ...    111      DC.B 'MM(MEMORY MODIFY)is used to display memory and,   as required, modify'
+000012FD= 0D                       112      DC.B $D  
+000012FE= 0A                       113      DC.B $A
+000012FF= 09                       114      DC.B $9
+00001300= 64 61 74 61 20 6F ...    115      DC.B 'data or enter new data. The size (byte, word, long word) controls the'
+00001345= 0D                       116      DC.B $D  
+00001346= 0A                       117      DC.B $A
+00001347= 09                       118      DC.B $9
+00001348= 6E 75 6D 62 65 72 ...    119      DC.B 'number of bytes displayed for each address.'    
+00001373                           120      
+00001373= 0D                       121      DC.B $D  
+00001374= 0A                       122      DC.B $A
+00001375= 0A                       123      DC.B $A
+00001376= 4D 53                    124      DC.B 'MS'
+00001378= 0D                       125      DC.B $D  
+00001379= 0A                       126      DC.B $A
+0000137A= 09                       127      DC.B $9 
+0000137B= 54 68 65 20 4D 53 ...    128      DC.B 'The MS (Memory Set) command alters memmory by setting data into the'
+000013BE= 0D                       129      DC.B $D  
+000013BF= 0A                       130      DC.B $A
+000013C0= 09                       131      DC.B $9
+000013C1= 61 64 64 72 65 73 ...    132      DC.B 'address specified. The data can take the form of ASCII string or'
+00001401= 0D                       133      DC.B $D  
+00001402= 0A                       134      DC.B $A
+00001403= 09                       135      DC.B $9
+00001404= 68 65 78 61 64 65 ...    136      DC.B 'hexadecimal data.'
+00001415                           137  
+00001415= 0D                       138      DC.B $D  
+00001416= 0A                       139      DC.B $A
+00001417= 0A                       140      DC.B $A
+00001418= 42 46                    141      DC.B 'BF'
+0000141A= 0D                       142      DC.B $D  
+0000141B= 0A                       143      DC.B $A
+0000141C= 09                       144      DC.B $9 
+0000141D= 54 68 65 20 42 6C ...    145      DC.B 'The Block Fill (BF) command fills memory starting with the word'
+0000145C= 0D                       146      DC.B $D  
+0000145D= 0A                       147      DC.B $A
+0000145E= 09                       148      DC.B $9
+0000145F= 62 6F 75 6E 64 61 ...    149      DC.B 'boundary <address1> through <address2>. Both <address1> and <address2> must'
+000014AA= 0D                       150      DC.B $D  
+000014AB= 0A                       151      DC.B $A
+000014AC= 09                       152      DC.B $9
+000014AD= 62 65 20 65 76 65 ...    153      DC.B 'be even   addresses. This command only fills with a word-size (2 bytes) data'
+000014F7= 0D                       154      DC.B $D  
+000014F8= 0A                       155      DC.B $A
+000014F9= 09                       156      DC.B $9
+000014FA= 70 61 74 74 65 72 ...    157      DC.B 'pattern. If an entire word-size data pattern is not entered, the pattern is '
+00001546= 0D                       158      DC.B $D  
+00001547= 0A                       159      DC.B $A
+00001548= 09                       160      DC.B $9
+00001549= 72 69 67 68 74 20 ...    161      DC.B 'right justified and leading zeros are inserted.'
+00001578                           162  
+00001578= 0D                       163      DC.B $D  
+00001579= 0A                       164      DC.B $A
+0000157A= 0A                       165      DC.B $A
+0000157B= 42 4D 4F 56              166      DC.B 'BMOV'
+0000157F= 0D                       167      DC.B $D  
+00001580= 0A                       168      DC.B $A
+00001581= 09                       169      DC.B $9 
+00001582= 54 68 65 20 42 6C ...    170      DC.B 'The Block Move (BMOV) command is used to move (duplicate) blocks of'
+000015C5= 0D                       171      DC.B $D  
+000015C6= 0A                       172      DC.B $A
+000015C7= 09                       173      DC.B $9
+000015C8= 6D 65 6D 6F 72 79 ...    174      DC.B 'memory from one area to another.'
+000015E8                           175  
+000015E8= 0D                       176      DC.B $D  
+000015E9= 0A                       177      DC.B $A
+000015EA= 0A                       178      DC.B $A
+000015EB= 42 54 53 54              179      DC.B 'BTST'
+000015EF= 0D                       180      DC.B $D  
+000015F0= 0A                       181      DC.B $A
+000015F1= 09                       182      DC.B $9 
+000015F2= 54 68 65 20 42 6C ...    183      DC.B 'The Block Test (BT) command is a destructive test of a block of'
+00001631= 0D                       184      DC.B $D  
+00001632= 0A                       185      DC.B $A
+00001633= 09                       186      DC.B $9
+00001634= 6D 65 6D 6F 72 79 ...    187      DC.B 'memory beginning at <address1> through <address2>. If this test'
+00001673= 0D                       188      DC.B $D  
+00001674= 0A                       189      DC.B $A
+00001675= 09                       190      DC.B $9
+00001676= 72 75 6E 73 20 74 ...    191      DC.B 'runs to completion without detecting errors, and display a message'
+000016B8= 0D                       192      DC.B $D  
+000016B9= 0A                       193      DC.B $A
+000016BA= 09                       194      DC.B $9
+000016BB= 74 68 61 74 20 6E ...    195      DC.B 'that no error was detected. If memory problems are found, a message is'    
+00001701= 0D                       196      DC.B $D  
+00001702= 0A                       197      DC.B $A
+00001703= 09                       198      DC.B $9
+00001704= 64 69 73 70 6C 61 ...    199      DC.B 'displayed indicating  the address, the data stored, and the data read'
+00001748= 0D                       200      DC.B $D  
+00001749= 0A                       201      DC.B $A
+0000174A= 09                       202      DC.B $9
+0000174B= 6F 66 20 74 68 65 ...    203      DC.B 'of the failing memory.'
+00001761                           204  
+00001761                           205   
+00001761                           206   
+00001761= 0D                       207      DC.B $D  
+00001762= 0A                       208      DC.B $A
+00001763= 0A                       209      DC.B $A
+00001764= 42 53 43 48              210      DC.B 'BSCH'
+00001768= 0D                       211      DC.B $D  
+00001769= 0A                       212      DC.B $A
+0000176A= 09                       213      DC.B $9 
+0000176B= 54 68 65 20 42 53 ...    214      DC.B 'The BSCH (Block   Search) command is used to search a literal string in'
+000017B0= 0D                       215      DC.B $D  
+000017B1= 0A                       216      DC.B $A
+000017B2= 09                       217      DC.B $9
+000017B3= 61 20 6D 65 6D 6F ...    218      DC.B 'a memory block starting at <address1> through <address2> both inclusive.'
+000017FB= 0D                       219      DC.B $D  
+000017FC= 0A                       220      DC.B $A
+000017FD= 09                       221      DC.B $9
+000017FE= 49 6E 20 42 53 43 ...    222      DC.B 'In BSCH command, if search finds matching data, the data and address(es)'
+00001846= 0D                       223      DC.B $D  
+00001847= 0A                       224      DC.B $A
+00001848= 09                       225      DC.B $9
+00001849= 6D 75 73 74 20 62 ...    226      DC.B 'must be displayed.' 
+0000185B                           227  
+0000185B                           228  
+0000185B= 0D                       229      DC.B $D  
+0000185C= 0A                       230      DC.B $A
+0000185D= 0A                       231      DC.B $A
+0000185E= 47 4F                    232      DC.B 'GO'
+00001860= 0D                       233      DC.B $D  
+00001861= 0A                       234      DC.B $A
+00001862= 09                       235      DC.B $9 
+00001863= 54 68 65 20 47 4F ...    236      DC.B 'The GO command is used to start execution from a given address.'
+000018A2                           237  
+000018A2= 0D                       238      DC.B $D  
+000018A3= 0A                       239      DC.B $A
+000018A4= 0A                       240      DC.B $A
+000018A5= 44 46                    241      DC.B 'DF'
+000018A7= 0D                       242      DC.B $D  
+000018A8= 0A                       243      DC.B $A
+000018A9= 09                       244      DC.B $9 
+000018AA= 54 68 65 20 44 69 ...    245      DC.B 'The Display Formatted Registers(DF) command is used to display'
+000018E8= 0D                       246      DC.B $D  
+000018E9= 0A                       247      DC.B $A
+000018EA= 09                       248      DC.B $9
+000018EB= 74 68 65 20 4D 43 ...    249      DC.B 'the MC68000 processor registers. This command should display current'
+0000192F= 0D                       250      DC.B $D  
+00001930= 0A                       251      DC.B $A
+00001931= 09                       252      DC.B $9
+00001932= 50 43 2C 20 53 52 ...    253      DC.B 'PC, SR,   US, SS and D, A registers.'
+00001954                           254      
+00001954= 0D                       255      DC.B $D  
+00001955= 0A                       256      DC.B $A
+00001956= 0A                       257      DC.B $A
+00001957= 45 58 49 54              258      DC.B 'EXIT'
+0000195B= 0D                       259      DC.B $D  
+0000195C= 0A                       260      DC.B $A
+0000195D= 09                       261      DC.B $9 
+0000195E= 54 68 65 20 45 58 ...    262      DC.B 'The EXIT command terminates/exits your MONITOR program'
+00001994                           263  
+00001994                           264   
+00001994= 00                       265      DC.B 0
+00001995                           266  
+00001995                           267  
+00001995                           268      
+00002000                           269      ORG    $2000
+00002000                           270      
+00002000                           271  START:                  ; first instruction of program
+00002000                           272  
+00002000                           273  
+00002000                           274  pSTART   
+00002000  227C 00001000            275      MOVEA.L #PROMPT,A1 
+00002006  103C 000E                276      MOVE.B #14,D0
+0000200A  4E4F                     277      TRAP #15
+0000200C  43F8 4000                278      LEA $4000,A1
+00002010  103C 0002                279      MOVE.B #2,D0
+00002014  4E4F                     280      TRAP #15
+00002016                           281      
+00002016                           282      
+00002016                           283      *COMPARING INPUT TO THE MENU ITEMS*
+00002016  207C 0000102D            284      MOVE.L #HELPPROMPT,A0
+0000201C  4283                     285      CLR.L D3 ;COUNTER FOR REVERSING A1 TO USER INPUT
+0000201E                           286  COMPAREHELP
+0000201E  5283                     287      ADD.L #1,D3
+00002020  B308                     288      CMPM.B (A0)+,(A1)+
+00002022  6600 000E                289      BNE COMPAREEXIT
+00002026  0C28 0000 FFFF           290      CMPI.B #00,-1(A0)   ;CHECK IF THE BYTE JUST COMPARED WAS NULL TERMINATOR
+0000202C  66F0                     291      BNE COMPAREHELP
+0000202E  6100 002E                292      BSR HELPFUNCTION 
+00002032                           293  
+00002032                           294      
+00002032                           295  COMPAREEXIT
+00002032  93C3                     296      SUB.L D3,A1
+00002034  4283                     297      CLR.L D3
+00002036  207C 0000105F            298      MOVE.L #EXITPROMPT,A0
+0000203C                           299  COMPAREEXIT2
+0000203C  5283                     300      ADD.L #1,D3
+0000203E  B308                     301      CMPM.B (A0)+,(A1)+
+00002040  6600 000E                302      BNE FAIL
+00002044  0C28 0000 FFFF           303      CMPI.B #0,-1(A0)
+0000204A  66F0                     304      BNE COMPAREEXIT2
+0000204C  6100 001E                305      BSR EXITFUNCTION 
+00002050                           306      
+00002050                           307      
+00002050                           308      
+00002050                           309  *WHEN INPUT DOESNT FIT THE CRITERIA*    
+00002050                           310  FAIL
+00002050  227C 0000100D            311      MOVEA.L #NOPROMPT,A1     
+00002056  103C 000D                312      MOVE.B #13,D0
+0000205A  4E4F                     313      TRAP #15
+0000205C  60A2                     314      BRA pSTART
+0000205E                           315      
+0000205E                           316      
+0000205E                           317  
+0000205E                           318      
+0000205E                           319      
+0000205E                           320  HELPFUNCTION
+0000205E  227C 00001064            321      MOVEA.L #HELP,A1     
+00002064  103C 000D                322      MOVE.B #13,D0
+00002068  4E4F                     323      TRAP #15
+0000206A  6094                     324      BRA pSTART
+0000206C                           325  
+0000206C                           326  EXITFUNCTION
+0000206C  103C 0009                327      MOVE.B #9,D0
+00002070  4E4F                     328      TRAP #15
+00002072                           329  
+00002072                           330  
+00002072                           331  
+00002072                           332  
+00002072                           333  
+00002072                           334      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+BFPROMPT            1043
+BMOVPROMPT          1046
+BSCHPROMPT          1050
+BTSTPROMPT          104B
+COMPAREEXIT         2032
+COMPAREEXIT2        203C
+COMPAREHELP         201E
+DFPROMPT            105A
+EXITFUNCTION        206C
+EXITPROMPT          105F
+FAIL                2050
+GOPROMPT            1055
+HELP                1064
+HELPFUNCTION        205E
+HELPPROMPT          102D
+MDSPPROMPT          1032
+MMPROMPT            103D
+MSPROMPT            1040
+NOPROMPT            100D
+PROMPT              1000
+PSTART              2000
+SORTWPROMPT         1037
+START               2000
