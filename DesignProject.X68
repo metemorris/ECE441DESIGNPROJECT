@@ -21,8 +21,7 @@ HELPPROMPT:
     DC.B 'HELP'
     DC.B 0    
 MDSPPROMPT:
-    DC.B 'MDSP'
-    DC.B 0
+    DC.B 'MDSP '
 SORTWPROMPT:
     DC.B 'SORTW'
     DC.B 0
@@ -53,6 +52,16 @@ DFPROMPT:
 EXITPROMPT:
     DC.B 'EXIT'
     DC.B 0
+    
+    
+*EXTRA COMMAND LINE THINGS*
+SEMICOLONSEP:
+    DC.B ' : '
+    DC.B 0
+SPACE:
+    DC.B ' '
+    DC.B 0
+
 
 *HELP LINE TO BE PRINTED OUT*  
 HELP:
@@ -299,9 +308,26 @@ COMPAREMDSP2
     ADD.L #1,D3
     CMPM.B (A0)+,(A1)+
     BNE COMPARESORTW
-    CMPI.B #0,-1(A0)
+    CMPI.B #32,-1(A0)  ;COMPARING LAST PART TO SPACE TO SEE IF THE STRING ENDS WITH A SPACE
     BNE COMPAREMDSP2
-    BSR MDSPFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+    ;CHECK FOR THE ARGUMENTS
+    CLR.L D4 ;FIRST ARG
+    CLR.L D5 ;SECOND ARG
+CMPMDSPL1
+    ADD.B (A1)+,D4   ; MOVE THE MEMORY LOCATION NUMBER TO D4
+    CMPI.B #0,(A1)  ;COMPARING LAST PART TO EMPTY STRNG
+    BEQ MDSPFUNCTION1 ;FUNCTION FOR 1 ARG
+    CMPI.B #32,(A1) ;COMPARING LAST PART TO SPACE
+    BEQ CMPMDSPL2
+    LSL.L #8,D4
+    BSR CMPMDSPL1
+CMPMDSPL2
+    ADD.B (A1)+,D5   ; MOVE THE SECOND MEMORY LOCATION NUMBER TO D5
+    CMPI.B #0,(A1)  ;COMPARING LAST PART TO EMPTY STRNG
+    BEQ MDSPFUNCTION2 ;FUNCTION FOR 2 ARG
+    LSL.L #8,D5
+    BSR CMPMDSPL2
+    
    
 COMPARESORTW
     SUB.L D3,A1
@@ -371,7 +397,7 @@ COMPAREBTST2
     ADD.L #1,D3
     CMPM.B (A0)+,(A1)+
     BNE COMPAREBSCH
-    CMPI.B #0,-1(A0)
+    CMPI.B #0,-(A0)
     BNE COMPAREBTST2
     BSR BTSTFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
 
@@ -439,13 +465,91 @@ HELPFUNCTION
     TRAP #15
     BRA pSTART
     
-MDSPFUNCTION
-    MOVEA.L #MDSPPROMPT,A1     
+MDSPFUNCTION1 ;argument passed as D4, PRINT FROM D4 TO D5
+    MOVE.L #$2000,D4
+    ;DISPLAY EVERYTHIGN FROM D4 FOR NOW 2000 TO 2016\
+    MOVE.L D4,A3
+    ADD.L #$F,A3 ;ENDING 
+    MOVE.L D4,A2 ;BEGGINING
+MDSPFUNCTION1L1 
+    ;PRINT MEMLOC
+    MOVE.L A2,D1
+    BSR HEXTOASCII 
+     
+    SWAP D1
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    SWAP D1
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+
+    
+    ;PRINT SEMICOLON
+    MOVEA.L #SEMICOLONSEP,A1     
+    MOVE.B #14,D0
+    TRAP #15
+    
+    ;PRINT CONTENT
+    CLR.L D1
+    MOVE.B (A2)+,D1
+    MOVE.B #3,D0
+    TRAP #15
+    
+    ;PRINT SEMICOLON
+    MOVEA.L #SPACE,A1     
     MOVE.B #13,D0
     TRAP #15
+    
+    
+    CMPA.L A2,A3
+    BGT MDSPFUNCTION1L1
+    
+
+    
     BRA pSTART
 
-SORTWFUNCTION
+MDSPFUNCTION2 ;argument passed as D4, PRINT FROM D4 TO D5
+    MOVE.L #$2000,D4
+    ;DISPLAY EVERYTHIGN FROM D4 FOR NOW 2000 TO 2016
+    MOVE.L D4,A2
+    ADD.L #$F,A2 ;ENDING 
+    ;MOVE.L D4,A1
+MDSPFUNCTION2L1 
+    ;PRINT MEMLOC
+    MOVE.L A1,D1
+    MOVE.B #3,D0
+    TRAP #15
+    
+    ;PRINT SEMICOLON
+    MOVEA.L #SEMICOLONSEP,A1     
+    MOVE.B #14,D0
+    TRAP #15
+    
+    ;PRINT CONTENT
+    CLR.L D1
+    MOVE.B (A1)+,D1
+    MOVE.B #13,D0
+    TRAP #15
+    
+    CMPA.L A1,A2
+    BLT MDSPFUNCTION2L1
+    
+    BRA pSTART
+
+
+SORTWFUNCTION ;argument passed as D4 to d5
     MOVEA.L #SORTWPROMPT,A1     
     MOVE.B #13,D0
     TRAP #15
@@ -502,12 +606,115 @@ DFFUNCTION
 EXITFUNCTION
     MOVE.B #9,D0
     TRAP #15
+    
+    
+********* HELPER FUNCTIONS **********
+
+HEXTOASCII
+*-----------------------------------------------------------
+* Title      : HEX to ASCII CONVERTER
+* Written by : METE MORRIS
+* Date       : 
+* Description: CONVERTS HEX WORD READ TO ASCII, REGISTERS MODIFIED ARE D2,D3,D4,D5 RETURNS D1
+*-----------------------------------------------------------
+* Put program code here
+     CLR.L D2
+     CLR.L D3
+     CLR.L D4
+     CLR.L D5
+     
+     ;FIRST NO
+     MOVE.B D1,D2
+     BCLR #4,D2
+     BCLR #5,D2
+     BCLR #6,D2
+     BCLR #7,D2
+     
+     ;SECOND NO
+     LSR #4,D1
+     MOVE.B D1,D3
+     BCLR #4,D3
+     BCLR #5,D3
+     BCLR #6,D3
+     BCLR #7,D3 
+     
+     ;THIRD NO
+     LSR #4,D1
+     MOVE.B D1,D4
+     BCLR #4,D4
+     BCLR #5,D4
+     BCLR #6,D4
+     BCLR #7,D4 
+     
+     ;FOURTH NO
+     LSR #4,D1
+     MOVE.B D1,D5
+     BCLR #4,D5
+     BCLR #5,D5
+     BCLR #6,D5
+     BCLR #7,D5 
+    
+    
+    ;CONVERT FIRST NO TO ASCII
+     CMP.B #9,D2
+     BGT LARGER1
+     ADD.L #$30,D2
+     BRA SECOND
+LARGER1
+     ADD.L #$37,D2
+     
+SECOND     
+    ;CONVERT SECOND NO TO ASCII
+     CMP.B #9,D3
+     BGT LARGER2
+     ADD.L #$30,D3
+     BRA THIRD
+LARGER2
+     ADD.L #$37,D3
+
+THIRD     
+    ;CONVERT THIRD NO TO ASCII
+     CMP.B #9,D4
+     BGT LARGER3
+     ADD.L #$30,D4
+     BRA FOURTH
+LARGER3
+     ADD.L #$37,D4
+
+FOURTH    
+    ;CONVERT FOURTH NO TO ASCII
+     CMP.B #9,D5
+     BGT LARGER4
+     ADD.L #$30,D5
+     BRA ADDFINISH
+LARGER4
+     ADD.L #$37,D5
+     
+    
+    ;ROTATE AND ADD THE NUMBERS     
+ADDFINISH
+     CLR.L D1
+     ADD.L D2,D1
+     
+     LSL #8,D3
+     ADD.L D3,D1
+     
+     SWAP.W D4
+     ADD.L D4,D1
+     
+     LSL #8,D5
+     SWAP.W D5
+     ADD.L D5,D1
+     
+     RTS    
+
 
 
 
 
 
     END    START        ; last line of source
+
 
 
 

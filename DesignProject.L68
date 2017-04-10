@@ -1,6 +1,6 @@
 00002000 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.15.04
-Created On: 4/5/2017 10:49:37 PM
+Created On: 4/10/2017 4:39:58 PM
 
 00000000                             1  *-----------------------------------------------------------
 00000000                             2  * Title      : Design Project v1
@@ -25,494 +25,699 @@ Created On: 4/5/2017 10:49:37 PM
 0000102D= 48 45 4C 50               21      DC.B 'HELP'
 00001031= 00                        22      DC.B 0    
 00001032                            23  MDSPPROMPT:
-00001032= 4D 44 53 50               24      DC.B 'MDSP'
-00001036= 00                        25      DC.B 0
-00001037                            26  SORTWPROMPT:
-00001037= 53 4F 52 54 57            27      DC.B 'SORTW'
-0000103C= 00                        28      DC.B 0
-0000103D                            29  MMPROMPT:
-0000103D= 4D 4D                     30      DC.B 'MM'
-0000103F= 00                        31      DC.B 0
-00001040                            32  MSPROMPT:
-00001040= 4D 53                     33      DC.B 'MS'
-00001042= 00                        34      DC.B 0
-00001043                            35  BFPROMPT:
-00001043= 42 46                     36      DC.B 'BF'
-00001045= 00                        37      DC.B 0
-00001046                            38  BMOVPROMPT:
-00001046= 42 4D 4F 56               39      DC.B 'BMOV'
-0000104A= 00                        40      DC.B 0
-0000104B                            41  BTSTPROMPT:
-0000104B= 42 54 53 54               42      DC.B 'BTST'
-0000104F= 00                        43      DC.B 0
-00001050                            44  BSCHPROMPT:
-00001050= 42 53 43 48               45      DC.B 'BSCH'
-00001054= 00                        46      DC.B 0
-00001055                            47  GOPROMPT:
-00001055= 47 4F                     48      DC.B 'GO'
-00001057= 00                        49      DC.B 0
-00001058                            50  DFPROMPT:
-00001058= 44 46                     51      DC.B 'DF'
-0000105A= 00                        52      DC.B 0
-0000105B                            53  EXITPROMPT:
-0000105B= 45 58 49 54               54      DC.B 'EXIT'
-0000105F= 00                        55      DC.B 0
-00001060                            56  
-00001060                            57  *HELP LINE TO BE PRINTED OUT*  
-00001060                            58  HELP:
-00001060= 48 45 4C 50               59      DC.B 'HELP'
-00001064= 0A                        60      DC.B $A  ;NEW LINE
-00001065= 44 49 53 50 4C 41 ...     61      DC.B 'DISPLAYS ALL AVAILABE COMMANDS AND USAGE DESCRIPTION '
-0000109A= 0D                        62      DC.B $D  ;CARRIAGE RETURN
-0000109B= 0A                        63      DC.B $A
-0000109C= 0A                        64      DC.B $A
-0000109D= 4D 44 53 50               65      DC.B 'MDSP'
-000010A1= 0D                        66      DC.B $D  
-000010A2= 0A                        67      DC.B $A
-000010A3= 09                        68      DC.B $9 ;TAB
-000010A4= 54 68 65 20 4D 44 ...     69      DC.B 'The MDSP(MemoryDisplay)command outputs the address and memory'
-000010E1= 0D                        70      DC.B $D  
-000010E2= 0A                        71      DC.B $A
-000010E3= 09                        72      DC.B $9
-000010E4= 63 6F 6E 74 65 6E ...     73      DC.B 'contents from <address1> to <address2>. '
-0000110C= 0D                        74      DC.B $D  
-0000110D= 0A                        75      DC.B $A
-0000110E= 09                        76      DC.B $9
-0000110F= 54 68 65 20 4D 44 ...     77      DC.B 'The MDSP(Memory Display) command ALSO outputs the address and'
-0000114C= 0D                        78      DC.B $D  
-0000114D= 0A                        79      DC.B $A
-0000114E= 09                        80      DC.B $9
-0000114F= 6D 65 6D 6F 72 79 ...     81      DC.B 'memory contents from <address1> to <address1+16bytes>.' 
-00001185= 0D                        82      DC.B $D  
-00001186= 0A                        83      DC.B $A
-00001187= 0A                        84      DC.B $A
-00001188= 53 4F 52 54 57            85      DC.B 'SORTW'
-0000118D= 0D                        86      DC.B $D  
-0000118E= 0A                        87      DC.B $A
-0000118F= 09                        88      DC.B $9 
-00001190= 54 68 65 20 53 4F ...     89      DC.B 'The SORT command sorts a block of memory. The starting address and the'
-000011D6= 0D                        90      DC.B $D  
-000011D7= 0A                        91      DC.B $A
-000011D8= 09                        92      DC.B $9
-000011D9= 65 6E 64 69 6E 67 ...     93      DC.B 'ending address <address2> of the memory block are specified in the command.'
-00001224= 0D                        94      DC.B $D  
-00001225= 0A                        95      DC.B $A
-00001226= 09                        96      DC.B $9
-00001227= 54 68 65 20 6F 72 ...     97      DC.B 'The order(A or D) specifies whether the list is sorted in Ascending'
-0000126A= 0D                        98      DC.B $D  
-0000126B= 0A                        99      DC.B $A
-0000126C= 09                       100      DC.B $9
-0000126D= 6F 72 20 44 65 73 ...    101      DC.B 'or Descending order.(The size of the data to be sorted is a word)'
-000012AE                           102      
-000012AE                           103      
-000012AE= 0D                       104      DC.B $D  
-000012AF= 0A                       105      DC.B $A
-000012B0= 0A                       106      DC.B $A
-000012B1= 4D 4D                    107      DC.B 'MM'
-000012B3= 0D                       108      DC.B $D  
-000012B4= 0A                       109      DC.B $A
-000012B5= 09                       110      DC.B $9 
-000012B6= 4D 4D 28 4D 45 4D ...    111      DC.B 'MM(MEMORY MODIFY)is used to display memory and,   as required, modify'
-000012F9= 0D                       112      DC.B $D  
-000012FA= 0A                       113      DC.B $A
-000012FB= 09                       114      DC.B $9
-000012FC= 64 61 74 61 20 6F ...    115      DC.B 'data or enter new data. The size (byte, word, long word) controls the'
-00001341= 0D                       116      DC.B $D  
-00001342= 0A                       117      DC.B $A
-00001343= 09                       118      DC.B $9
-00001344= 6E 75 6D 62 65 72 ...    119      DC.B 'number of bytes displayed for each address.'    
-0000136F                           120      
-0000136F= 0D                       121      DC.B $D  
-00001370= 0A                       122      DC.B $A
-00001371= 0A                       123      DC.B $A
-00001372= 4D 53                    124      DC.B 'MS'
-00001374= 0D                       125      DC.B $D  
-00001375= 0A                       126      DC.B $A
-00001376= 09                       127      DC.B $9 
-00001377= 54 68 65 20 4D 53 ...    128      DC.B 'The MS (Memory Set) command alters memmory by setting data into the'
-000013BA= 0D                       129      DC.B $D  
-000013BB= 0A                       130      DC.B $A
-000013BC= 09                       131      DC.B $9
-000013BD= 61 64 64 72 65 73 ...    132      DC.B 'address specified. The data can take the form of ASCII string or'
-000013FD= 0D                       133      DC.B $D  
-000013FE= 0A                       134      DC.B $A
-000013FF= 09                       135      DC.B $9
-00001400= 68 65 78 61 64 65 ...    136      DC.B 'hexadecimal data.'
-00001411                           137  
-00001411= 0D                       138      DC.B $D  
-00001412= 0A                       139      DC.B $A
-00001413= 0A                       140      DC.B $A
-00001414= 42 46                    141      DC.B 'BF'
-00001416= 0D                       142      DC.B $D  
-00001417= 0A                       143      DC.B $A
-00001418= 09                       144      DC.B $9 
-00001419= 54 68 65 20 42 6C ...    145      DC.B 'The Block Fill (BF) command fills memory starting with the word'
-00001458= 0D                       146      DC.B $D  
-00001459= 0A                       147      DC.B $A
-0000145A= 09                       148      DC.B $9
-0000145B= 62 6F 75 6E 64 61 ...    149      DC.B 'boundary <address1> through <address2>. Both <address1> and <address2> must'
-000014A6= 0D                       150      DC.B $D  
-000014A7= 0A                       151      DC.B $A
-000014A8= 09                       152      DC.B $9
-000014A9= 62 65 20 65 76 65 ...    153      DC.B 'be even   addresses. This command only fills with a word-size (2 bytes) data'
-000014F3= 0D                       154      DC.B $D  
-000014F4= 0A                       155      DC.B $A
-000014F5= 09                       156      DC.B $9
-000014F6= 70 61 74 74 65 72 ...    157      DC.B 'pattern. If an entire word-size data pattern is not entered, the pattern is '
-00001542= 0D                       158      DC.B $D  
-00001543= 0A                       159      DC.B $A
-00001544= 09                       160      DC.B $9
-00001545= 72 69 67 68 74 20 ...    161      DC.B 'right justified and leading zeros are inserted.'
-00001574                           162  
-00001574= 0D                       163      DC.B $D  
-00001575= 0A                       164      DC.B $A
-00001576= 0A                       165      DC.B $A
-00001577= 42 4D 4F 56              166      DC.B 'BMOV'
-0000157B= 0D                       167      DC.B $D  
-0000157C= 0A                       168      DC.B $A
-0000157D= 09                       169      DC.B $9 
-0000157E= 54 68 65 20 42 6C ...    170      DC.B 'The Block Move (BMOV) command is used to move (duplicate) blocks of'
-000015C1= 0D                       171      DC.B $D  
-000015C2= 0A                       172      DC.B $A
-000015C3= 09                       173      DC.B $9
-000015C4= 6D 65 6D 6F 72 79 ...    174      DC.B 'memory from one area to another.'
-000015E4                           175  
-000015E4= 0D                       176      DC.B $D  
-000015E5= 0A                       177      DC.B $A
-000015E6= 0A                       178      DC.B $A
-000015E7= 42 54 53 54              179      DC.B 'BTST'
-000015EB= 0D                       180      DC.B $D  
-000015EC= 0A                       181      DC.B $A
-000015ED= 09                       182      DC.B $9 
-000015EE= 54 68 65 20 42 6C ...    183      DC.B 'The Block Test (BT) command is a destructive test of a block of'
-0000162D= 0D                       184      DC.B $D  
-0000162E= 0A                       185      DC.B $A
-0000162F= 09                       186      DC.B $9
-00001630= 6D 65 6D 6F 72 79 ...    187      DC.B 'memory beginning at <address1> through <address2>. If this test'
-0000166F= 0D                       188      DC.B $D  
-00001670= 0A                       189      DC.B $A
-00001671= 09                       190      DC.B $9
-00001672= 72 75 6E 73 20 74 ...    191      DC.B 'runs to completion without detecting errors, and display a message'
-000016B4= 0D                       192      DC.B $D  
-000016B5= 0A                       193      DC.B $A
-000016B6= 09                       194      DC.B $9
-000016B7= 74 68 61 74 20 6E ...    195      DC.B 'that no error was detected. If memory problems are found, a message is'    
-000016FD= 0D                       196      DC.B $D  
-000016FE= 0A                       197      DC.B $A
-000016FF= 09                       198      DC.B $9
-00001700= 64 69 73 70 6C 61 ...    199      DC.B 'displayed indicating  the address, the data stored, and the data read'
-00001744= 0D                       200      DC.B $D  
-00001745= 0A                       201      DC.B $A
-00001746= 09                       202      DC.B $9
-00001747= 6F 66 20 74 68 65 ...    203      DC.B 'of the failing memory.'
-0000175D                           204  
-0000175D                           205   
-0000175D                           206   
-0000175D= 0D                       207      DC.B $D  
-0000175E= 0A                       208      DC.B $A
-0000175F= 0A                       209      DC.B $A
-00001760= 42 53 43 48              210      DC.B 'BSCH'
-00001764= 0D                       211      DC.B $D  
-00001765= 0A                       212      DC.B $A
-00001766= 09                       213      DC.B $9 
-00001767= 54 68 65 20 42 53 ...    214      DC.B 'The BSCH (Block   Search) command is used to search a literal string in'
-000017AC= 0D                       215      DC.B $D  
-000017AD= 0A                       216      DC.B $A
-000017AE= 09                       217      DC.B $9
-000017AF= 61 20 6D 65 6D 6F ...    218      DC.B 'a memory block starting at <address1> through <address2> both inclusive.'
-000017F7= 0D                       219      DC.B $D  
-000017F8= 0A                       220      DC.B $A
-000017F9= 09                       221      DC.B $9
-000017FA= 49 6E 20 42 53 43 ...    222      DC.B 'In BSCH command, if search finds matching data, the data and address(es)'
-00001842= 0D                       223      DC.B $D  
-00001843= 0A                       224      DC.B $A
-00001844= 09                       225      DC.B $9
-00001845= 6D 75 73 74 20 62 ...    226      DC.B 'must be displayed.' 
-00001857                           227  
-00001857                           228  
-00001857= 0D                       229      DC.B $D  
-00001858= 0A                       230      DC.B $A
-00001859= 0A                       231      DC.B $A
-0000185A= 47 4F                    232      DC.B 'GO'
-0000185C= 0D                       233      DC.B $D  
-0000185D= 0A                       234      DC.B $A
-0000185E= 09                       235      DC.B $9 
-0000185F= 54 68 65 20 47 4F ...    236      DC.B 'The GO command is used to start execution from a given address.'
-0000189E                           237  
-0000189E= 0D                       238      DC.B $D  
-0000189F= 0A                       239      DC.B $A
-000018A0= 0A                       240      DC.B $A
-000018A1= 44 46                    241      DC.B 'DF'
-000018A3= 0D                       242      DC.B $D  
-000018A4= 0A                       243      DC.B $A
-000018A5= 09                       244      DC.B $9 
-000018A6= 54 68 65 20 44 69 ...    245      DC.B 'The Display Formatted Registers(DF) command is used to display'
-000018E4= 0D                       246      DC.B $D  
-000018E5= 0A                       247      DC.B $A
-000018E6= 09                       248      DC.B $9
-000018E7= 74 68 65 20 4D 43 ...    249      DC.B 'the MC68000 processor registers. This command should display current'
-0000192B= 0D                       250      DC.B $D  
-0000192C= 0A                       251      DC.B $A
-0000192D= 09                       252      DC.B $9
-0000192E= 50 43 2C 20 53 52 ...    253      DC.B 'PC, SR,   US, SS and D, A registers.'
-00001950                           254      
-00001950= 0D                       255      DC.B $D  
-00001951= 0A                       256      DC.B $A
-00001952= 0A                       257      DC.B $A
-00001953= 45 58 49 54              258      DC.B 'EXIT'
-00001957= 0D                       259      DC.B $D  
-00001958= 0A                       260      DC.B $A
-00001959= 09                       261      DC.B $9 
-0000195A= 54 68 65 20 45 58 ...    262      DC.B 'The EXIT command terminates/exits your MONITOR program'
-00001990                           263  
-00001990                           264   
-00001990= 00                       265      DC.B 0
-00001991                           266  
-00001991                           267  
-00001991                           268      
-00002000                           269      ORG    $2000
-00002000                           270      
-00002000                           271  START:                  ; first instruction of program
-00002000                           272  
-00002000                           273  
-00002000                           274  pSTART   
-00002000  227C 00001000            275      MOVEA.L #PROMPT,A1 
-00002006  103C 000E                276      MOVE.B #14,D0
-0000200A  4E4F                     277      TRAP #15
-0000200C  43F8 4000                278      LEA $4000,A1
-00002010  103C 0002                279      MOVE.B #2,D0
-00002014  4E4F                     280      TRAP #15
-00002016                           281      
-00002016                           282      
-00002016                           283      *COMPARING INPUT TO THE MENU ITEMS*
-00002016  207C 0000102D            284      MOVE.L #HELPPROMPT,A0
-0000201C  4283                     285      CLR.L D3 ;COUNTER FOR REVERSING A1 TO USER INPUT
-0000201E                           286  COMPAREHELP
-0000201E  5283                     287      ADD.L #1,D3
-00002020  B308                     288      CMPM.B (A0)+,(A1)+
-00002022  6600 000E                289      BNE COMPAREMDSP
-00002026  0C28 0000 FFFF           290      CMPI.B #00,-1(A0)   ;CHECK IF THE BYTE JUST COMPARED WAS NULL TERMINATOR
-0000202C  66F0                     291      BNE COMPAREHELP
-0000202E  6100 015C                292      BSR HELPFUNCTION 
-00002032                           293  
-00002032                           294  COMPAREMDSP
-00002032  93C3                     295      SUB.L D3,A1
-00002034  4283                     296      CLR.L D3
-00002036  207C 00001032            297      MOVE.L #MDSPPROMPT,A0
-0000203C                           298  COMPAREMDSP2
-0000203C  5283                     299      ADD.L #1,D3
-0000203E  B308                     300      CMPM.B (A0)+,(A1)+
-00002040  6600 000E                301      BNE COMPARESORTW
-00002044  0C28 0000 FFFF           302      CMPI.B #0,-1(A0)
-0000204A  66F0                     303      BNE COMPAREMDSP2
-0000204C  6100 014E                304      BSR MDSPFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-00002050                           305     
-00002050                           306  COMPARESORTW
-00002050  93C3                     307      SUB.L D3,A1
-00002052  4283                     308      CLR.L D3
-00002054  207C 00001037            309      MOVE.L #SORTWPROMPT,A0
-0000205A                           310  COMPARESORTW2
-0000205A  5283                     311      ADD.L #1,D3
-0000205C  B308                     312      CMPM.B (A0)+,(A1)+
-0000205E  6600 000E                313      BNE COMPAREMM
-00002062  0C28 0000 FFFF           314      CMPI.B #0,-1(A0)
-00002068  66F0                     315      BNE COMPARESORTW2
-0000206A  6100 0140                316      BSR SORTWFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-0000206E                           317  
-0000206E                           318  COMPAREMM
-0000206E  93C3                     319      SUB.L D3,A1
-00002070  4283                     320      CLR.L D3
-00002072  207C 0000103D            321      MOVE.L #MMPROMPT,A0
-00002078                           322  COMPAREMM2
-00002078  5283                     323      ADD.L #1,D3
-0000207A  B308                     324      CMPM.B (A0)+,(A1)+
-0000207C  6600 000E                325      BNE COMPAREMS
-00002080  0C28 0000 FFFF           326      CMPI.B #0,-1(A0)
-00002086  66F0                     327      BNE COMPAREMM2
-00002088  6100 0132                328      BSR MMFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-0000208C                           329  
-0000208C                           330  COMPAREMS
-0000208C  93C3                     331      SUB.L D3,A1
-0000208E  4283                     332      CLR.L D3
-00002090  207C 00001040            333      MOVE.L #MSPROMPT,A0
-00002096                           334  COMPAREMS2
-00002096  5283                     335      ADD.L #1,D3
-00002098  B308                     336      CMPM.B (A0)+,(A1)+
-0000209A  6600 000E                337      BNE COMPAREBF
-0000209E  0C28 0000 FFFF           338      CMPI.B #0,-1(A0)
-000020A4  66F0                     339      BNE COMPAREMS2
-000020A6  6100 0124                340      BSR MSFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-000020AA                           341  
-000020AA                           342  COMPAREBF
-000020AA  93C3                     343      SUB.L D3,A1
-000020AC  4283                     344      CLR.L D3
-000020AE  207C 00001043            345      MOVE.L #BFPROMPT,A0
-000020B4                           346  COMPAREBF2
-000020B4  5283                     347      ADD.L #1,D3
-000020B6  B308                     348      CMPM.B (A0)+,(A1)+
-000020B8  6600 000E                349      BNE COMPAREBMOV
-000020BC  0C28 0000 FFFF           350      CMPI.B #0,-1(A0)
-000020C2  66F0                     351      BNE COMPAREBF2
-000020C4  6100 0116                352      BSR BFFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-000020C8                           353  
-000020C8                           354  COMPAREBMOV
-000020C8  93C3                     355      SUB.L D3,A1
-000020CA  4283                     356      CLR.L D3
-000020CC  207C 00001046            357      MOVE.L #BMOVPROMPT,A0
-000020D2                           358  COMPAREBMOV2
-000020D2  5283                     359      ADD.L #1,D3
-000020D4  B308                     360      CMPM.B (A0)+,(A1)+
-000020D6  6600 000E                361      BNE COMPAREBTST
-000020DA  0C28 0000 FFFF           362      CMPI.B #0,-1(A0)
-000020E0  66F0                     363      BNE COMPAREBMOV2
-000020E2  6100 0108                364      BSR BMOVFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-000020E6                           365  
-000020E6                           366  COMPAREBTST
-000020E6  93C3                     367      SUB.L D3,A1
-000020E8  4283                     368      CLR.L D3
-000020EA  207C 0000104B            369      MOVE.L #BTSTPROMPT,A0
-000020F0                           370  COMPAREBTST2
-000020F0  5283                     371      ADD.L #1,D3
-000020F2  B308                     372      CMPM.B (A0)+,(A1)+
-000020F4  6600 000E                373      BNE COMPAREBSCH
-000020F8  0C28 0000 FFFF           374      CMPI.B #0,-1(A0)
-000020FE  66F0                     375      BNE COMPAREBTST2
-00002100  6100 00FA                376      BSR BTSTFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-00002104                           377  
-00002104                           378  COMPAREBSCH
-00002104  93C3                     379      SUB.L D3,A1
-00002106  4283                     380      CLR.L D3
-00002108  207C 00001050            381      MOVE.L #BSCHPROMPT,A0
-0000210E                           382  COMPAREBSCH2
-0000210E  5283                     383      ADD.L #1,D3
-00002110  B308                     384      CMPM.B (A0)+,(A1)+
-00002112  6600 000E                385      BNE COMPAREGO
-00002116  0C28 0000 FFFF           386      CMPI.B #0,-1(A0)
-0000211C  66F0                     387      BNE COMPAREBSCH2
-0000211E  6100 00EC                388      BSR BSCHFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-00002122                           389  
-00002122                           390  COMPAREGO
-00002122  93C3                     391      SUB.L D3,A1
-00002124  4283                     392      CLR.L D3
-00002126  207C 00001055            393      MOVE.L #GOPROMPT,A0
-0000212C                           394  COMPAREGO2
-0000212C  5283                     395      ADD.L #1,D3
-0000212E  B308                     396      CMPM.B (A0)+,(A1)+
-00002130  6600 000E                397      BNE COMPAREDF
-00002134  0C28 0000 FFFF           398      CMPI.B #0,-1(A0)
-0000213A  66F0                     399      BNE COMPAREGO2
-0000213C  6100 00DE                400      BSR GOFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-00002140                           401  
-00002140                           402  COMPAREDF
-00002140  93C3                     403      SUB.L D3,A1
-00002142  4283                     404      CLR.L D3
-00002144  207C 00001058            405      MOVE.L #DFPROMPT,A0
-0000214A                           406  COMPAREDF2
-0000214A  5283                     407      ADD.L #1,D3
-0000214C  B308                     408      CMPM.B (A0)+,(A1)+
-0000214E  6600 000E                409      BNE COMPAREEXIT
-00002152  0C28 0000 FFFF           410      CMPI.B #0,-1(A0)
-00002158  66F0                     411      BNE COMPAREDF2
-0000215A  6100 00D0                412      BSR DFFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
-0000215E                           413  
-0000215E                           414      
-0000215E                           415  COMPAREEXIT
-0000215E  93C3                     416      SUB.L D3,A1
-00002160  4283                     417      CLR.L D3
-00002162  207C 0000105B            418      MOVE.L #EXITPROMPT,A0
-00002168                           419  COMPAREEXIT2
-00002168  5283                     420      ADD.L #1,D3
-0000216A  B308                     421      CMPM.B (A0)+,(A1)+
-0000216C  6600 000E                422      BNE FAIL
-00002170  0C28 0000 FFFF           423      CMPI.B #0,-1(A0)
-00002176  66F0                     424      BNE COMPAREEXIT2
-00002178  6100 00C2                425      BSR EXITFUNCTION 
-0000217C                           426      
-0000217C                           427      
-0000217C                           428      
-0000217C                           429  *WHEN INPUT DOESNT FIT THE CRITERIA*    
-0000217C                           430  FAIL
-0000217C  227C 0000100D            431      MOVEA.L #NOPROMPT,A1     
-00002182  103C 000D                432      MOVE.B #13,D0
-00002186  4E4F                     433      TRAP #15
-00002188  6000 FE76                434      BRA pSTART
-0000218C                           435        
-0000218C                           436  HELPFUNCTION
-0000218C  227C 00001060            437      MOVEA.L #HELP,A1     
-00002192  103C 000D                438      MOVE.B #13,D0
-00002196  4E4F                     439      TRAP #15
-00002198  6000 FE66                440      BRA pSTART
-0000219C                           441      
-0000219C                           442  MDSPFUNCTION
-0000219C  227C 00001032            443      MOVEA.L #MDSPPROMPT,A1     
-000021A2  103C 000D                444      MOVE.B #13,D0
-000021A6  4E4F                     445      TRAP #15
-000021A8  6000 FE56                446      BRA pSTART
-000021AC                           447  
-000021AC                           448  SORTWFUNCTION
-000021AC  227C 00001037            449      MOVEA.L #SORTWPROMPT,A1     
-000021B2  103C 000D                450      MOVE.B #13,D0
-000021B6  4E4F                     451      TRAP #15
-000021B8  6000 FE46                452      BRA pSTART
-000021BC                           453  
-000021BC                           454  MMFUNCTION
-000021BC  227C 0000103D            455      MOVEA.L #MMPROMPT,A1     
-000021C2  103C 000D                456      MOVE.B #13,D0
-000021C6  4E4F                     457      TRAP #15
-000021C8  6000 FE36                458      BRA pSTART
-000021CC                           459  
-000021CC                           460  MSFUNCTION
-000021CC  227C 00001040            461      MOVEA.L #MSPROMPT,A1     
-000021D2  103C 000D                462      MOVE.B #13,D0
-000021D6  4E4F                     463      TRAP #15
-000021D8  6000 FE26                464      BRA pSTART
-000021DC                           465  
-000021DC                           466  BFFUNCTION
-000021DC  227C 00001043            467      MOVEA.L #BFPROMPT,A1     
-000021E2  103C 000D                468      MOVE.B #13,D0
-000021E6  4E4F                     469      TRAP #15
-000021E8  6000 FE16                470      BRA pSTART
-000021EC                           471  
-000021EC                           472  BMOVFUNCTION
-000021EC  227C 00001046            473      MOVEA.L #BMOVPROMPT,A1     
-000021F2  103C 000D                474      MOVE.B #13,D0
-000021F6  4E4F                     475      TRAP #15
-000021F8  6000 FE06                476      BRA pSTART
-000021FC                           477  
-000021FC                           478  BTSTFUNCTION
-000021FC  227C 0000104B            479      MOVEA.L #BTSTPROMPT,A1     
-00002202  103C 000D                480      MOVE.B #13,D0
-00002206  4E4F                     481      TRAP #15
-00002208  6000 FDF6                482      BRA pSTART
-0000220C                           483  
-0000220C                           484  BSCHFUNCTION
-0000220C  227C 00001050            485      MOVEA.L #BSCHPROMPT,A1     
-00002212  103C 000D                486      MOVE.B #13,D0
-00002216  4E4F                     487      TRAP #15
-00002218  6000 FDE6                488      BRA pSTART
-0000221C                           489  
-0000221C                           490  GOFUNCTION
-0000221C  227C 00001055            491      MOVEA.L #GOPROMPT,A1     
-00002222  103C 000D                492      MOVE.B #13,D0
-00002226  4E4F                     493      TRAP #15
-00002228  6000 FDD6                494      BRA pSTART
-0000222C                           495  
-0000222C                           496  DFFUNCTION
-0000222C  227C 00001058            497      MOVEA.L #DFPROMPT,A1     
-00002232  103C 000D                498      MOVE.B #13,D0
-00002236  4E4F                     499      TRAP #15
-00002238  6000 FDC6                500      BRA pSTART
-0000223C                           501  
-0000223C                           502  
-0000223C                           503  EXITFUNCTION
-0000223C  103C 0009                504      MOVE.B #9,D0
-00002240  4E4F                     505      TRAP #15
-00002242                           506  
-00002242                           507  
-00002242                           508  
-00002242                           509  
-00002242                           510  
-00002242                           511      END    START        ; last line of source
+00001032= 4D 44 53 50 20            24      DC.B 'MDSP '
+00001037                            25  SORTWPROMPT:
+00001037= 53 4F 52 54 57            26      DC.B 'SORTW'
+0000103C= 00                        27      DC.B 0
+0000103D                            28  MMPROMPT:
+0000103D= 4D 4D                     29      DC.B 'MM'
+0000103F= 00                        30      DC.B 0
+00001040                            31  MSPROMPT:
+00001040= 4D 53                     32      DC.B 'MS'
+00001042= 00                        33      DC.B 0
+00001043                            34  BFPROMPT:
+00001043= 42 46                     35      DC.B 'BF'
+00001045= 00                        36      DC.B 0
+00001046                            37  BMOVPROMPT:
+00001046= 42 4D 4F 56               38      DC.B 'BMOV'
+0000104A= 00                        39      DC.B 0
+0000104B                            40  BTSTPROMPT:
+0000104B= 42 54 53 54               41      DC.B 'BTST'
+0000104F= 00                        42      DC.B 0
+00001050                            43  BSCHPROMPT:
+00001050= 42 53 43 48               44      DC.B 'BSCH'
+00001054= 00                        45      DC.B 0
+00001055                            46  GOPROMPT:
+00001055= 47 4F                     47      DC.B 'GO'
+00001057= 00                        48      DC.B 0
+00001058                            49  DFPROMPT:
+00001058= 44 46                     50      DC.B 'DF'
+0000105A= 00                        51      DC.B 0
+0000105B                            52  EXITPROMPT:
+0000105B= 45 58 49 54               53      DC.B 'EXIT'
+0000105F= 00                        54      DC.B 0
+00001060                            55      
+00001060                            56      
+00001060                            57  *EXTRA COMMAND LINE THINGS*
+00001060                            58  SEMICOLONSEP:
+00001060= 20 3A 20                  59      DC.B ' : '
+00001063= 00                        60      DC.B 0
+00001064                            61  SPACE:
+00001064= 20                        62      DC.B ' '
+00001065= 00                        63      DC.B 0
+00001066                            64  
+00001066                            65  
+00001066                            66  *HELP LINE TO BE PRINTED OUT*  
+00001066                            67  HELP:
+00001066= 48 45 4C 50               68      DC.B 'HELP'
+0000106A= 0A                        69      DC.B $A  ;NEW LINE
+0000106B= 44 49 53 50 4C 41 ...     70      DC.B 'DISPLAYS ALL AVAILABE COMMANDS AND USAGE DESCRIPTION '
+000010A0= 0D                        71      DC.B $D  ;CARRIAGE RETURN
+000010A1= 0A                        72      DC.B $A
+000010A2= 0A                        73      DC.B $A
+000010A3= 4D 44 53 50               74      DC.B 'MDSP'
+000010A7= 0D                        75      DC.B $D  
+000010A8= 0A                        76      DC.B $A
+000010A9= 09                        77      DC.B $9 ;TAB
+000010AA= 54 68 65 20 4D 44 ...     78      DC.B 'The MDSP(MemoryDisplay)command outputs the address and memory'
+000010E7= 0D                        79      DC.B $D  
+000010E8= 0A                        80      DC.B $A
+000010E9= 09                        81      DC.B $9
+000010EA= 63 6F 6E 74 65 6E ...     82      DC.B 'contents from <address1> to <address2>. '
+00001112= 0D                        83      DC.B $D  
+00001113= 0A                        84      DC.B $A
+00001114= 09                        85      DC.B $9
+00001115= 54 68 65 20 4D 44 ...     86      DC.B 'The MDSP(Memory Display) command ALSO outputs the address and'
+00001152= 0D                        87      DC.B $D  
+00001153= 0A                        88      DC.B $A
+00001154= 09                        89      DC.B $9
+00001155= 6D 65 6D 6F 72 79 ...     90      DC.B 'memory contents from <address1> to <address1+16bytes>.' 
+0000118B= 0D                        91      DC.B $D  
+0000118C= 0A                        92      DC.B $A
+0000118D= 0A                        93      DC.B $A
+0000118E= 53 4F 52 54 57            94      DC.B 'SORTW'
+00001193= 0D                        95      DC.B $D  
+00001194= 0A                        96      DC.B $A
+00001195= 09                        97      DC.B $9 
+00001196= 54 68 65 20 53 4F ...     98      DC.B 'The SORT command sorts a block of memory. The starting address and the'
+000011DC= 0D                        99      DC.B $D  
+000011DD= 0A                       100      DC.B $A
+000011DE= 09                       101      DC.B $9
+000011DF= 65 6E 64 69 6E 67 ...    102      DC.B 'ending address <address2> of the memory block are specified in the command.'
+0000122A= 0D                       103      DC.B $D  
+0000122B= 0A                       104      DC.B $A
+0000122C= 09                       105      DC.B $9
+0000122D= 54 68 65 20 6F 72 ...    106      DC.B 'The order(A or D) specifies whether the list is sorted in Ascending'
+00001270= 0D                       107      DC.B $D  
+00001271= 0A                       108      DC.B $A
+00001272= 09                       109      DC.B $9
+00001273= 6F 72 20 44 65 73 ...    110      DC.B 'or Descending order.(The size of the data to be sorted is a word)'
+000012B4                           111      
+000012B4                           112      
+000012B4= 0D                       113      DC.B $D  
+000012B5= 0A                       114      DC.B $A
+000012B6= 0A                       115      DC.B $A
+000012B7= 4D 4D                    116      DC.B 'MM'
+000012B9= 0D                       117      DC.B $D  
+000012BA= 0A                       118      DC.B $A
+000012BB= 09                       119      DC.B $9 
+000012BC= 4D 4D 28 4D 45 4D ...    120      DC.B 'MM(MEMORY MODIFY)is used to display memory and,   as required, modify'
+000012FF= 0D                       121      DC.B $D  
+00001300= 0A                       122      DC.B $A
+00001301= 09                       123      DC.B $9
+00001302= 64 61 74 61 20 6F ...    124      DC.B 'data or enter new data. The size (byte, word, long word) controls the'
+00001347= 0D                       125      DC.B $D  
+00001348= 0A                       126      DC.B $A
+00001349= 09                       127      DC.B $9
+0000134A= 6E 75 6D 62 65 72 ...    128      DC.B 'number of bytes displayed for each address.'    
+00001375                           129      
+00001375= 0D                       130      DC.B $D  
+00001376= 0A                       131      DC.B $A
+00001377= 0A                       132      DC.B $A
+00001378= 4D 53                    133      DC.B 'MS'
+0000137A= 0D                       134      DC.B $D  
+0000137B= 0A                       135      DC.B $A
+0000137C= 09                       136      DC.B $9 
+0000137D= 54 68 65 20 4D 53 ...    137      DC.B 'The MS (Memory Set) command alters memmory by setting data into the'
+000013C0= 0D                       138      DC.B $D  
+000013C1= 0A                       139      DC.B $A
+000013C2= 09                       140      DC.B $9
+000013C3= 61 64 64 72 65 73 ...    141      DC.B 'address specified. The data can take the form of ASCII string or'
+00001403= 0D                       142      DC.B $D  
+00001404= 0A                       143      DC.B $A
+00001405= 09                       144      DC.B $9
+00001406= 68 65 78 61 64 65 ...    145      DC.B 'hexadecimal data.'
+00001417                           146  
+00001417= 0D                       147      DC.B $D  
+00001418= 0A                       148      DC.B $A
+00001419= 0A                       149      DC.B $A
+0000141A= 42 46                    150      DC.B 'BF'
+0000141C= 0D                       151      DC.B $D  
+0000141D= 0A                       152      DC.B $A
+0000141E= 09                       153      DC.B $9 
+0000141F= 54 68 65 20 42 6C ...    154      DC.B 'The Block Fill (BF) command fills memory starting with the word'
+0000145E= 0D                       155      DC.B $D  
+0000145F= 0A                       156      DC.B $A
+00001460= 09                       157      DC.B $9
+00001461= 62 6F 75 6E 64 61 ...    158      DC.B 'boundary <address1> through <address2>. Both <address1> and <address2> must'
+000014AC= 0D                       159      DC.B $D  
+000014AD= 0A                       160      DC.B $A
+000014AE= 09                       161      DC.B $9
+000014AF= 62 65 20 65 76 65 ...    162      DC.B 'be even   addresses. This command only fills with a word-size (2 bytes) data'
+000014F9= 0D                       163      DC.B $D  
+000014FA= 0A                       164      DC.B $A
+000014FB= 09                       165      DC.B $9
+000014FC= 70 61 74 74 65 72 ...    166      DC.B 'pattern. If an entire word-size data pattern is not entered, the pattern is '
+00001548= 0D                       167      DC.B $D  
+00001549= 0A                       168      DC.B $A
+0000154A= 09                       169      DC.B $9
+0000154B= 72 69 67 68 74 20 ...    170      DC.B 'right justified and leading zeros are inserted.'
+0000157A                           171  
+0000157A= 0D                       172      DC.B $D  
+0000157B= 0A                       173      DC.B $A
+0000157C= 0A                       174      DC.B $A
+0000157D= 42 4D 4F 56              175      DC.B 'BMOV'
+00001581= 0D                       176      DC.B $D  
+00001582= 0A                       177      DC.B $A
+00001583= 09                       178      DC.B $9 
+00001584= 54 68 65 20 42 6C ...    179      DC.B 'The Block Move (BMOV) command is used to move (duplicate) blocks of'
+000015C7= 0D                       180      DC.B $D  
+000015C8= 0A                       181      DC.B $A
+000015C9= 09                       182      DC.B $9
+000015CA= 6D 65 6D 6F 72 79 ...    183      DC.B 'memory from one area to another.'
+000015EA                           184  
+000015EA= 0D                       185      DC.B $D  
+000015EB= 0A                       186      DC.B $A
+000015EC= 0A                       187      DC.B $A
+000015ED= 42 54 53 54              188      DC.B 'BTST'
+000015F1= 0D                       189      DC.B $D  
+000015F2= 0A                       190      DC.B $A
+000015F3= 09                       191      DC.B $9 
+000015F4= 54 68 65 20 42 6C ...    192      DC.B 'The Block Test (BT) command is a destructive test of a block of'
+00001633= 0D                       193      DC.B $D  
+00001634= 0A                       194      DC.B $A
+00001635= 09                       195      DC.B $9
+00001636= 6D 65 6D 6F 72 79 ...    196      DC.B 'memory beginning at <address1> through <address2>. If this test'
+00001675= 0D                       197      DC.B $D  
+00001676= 0A                       198      DC.B $A
+00001677= 09                       199      DC.B $9
+00001678= 72 75 6E 73 20 74 ...    200      DC.B 'runs to completion without detecting errors, and display a message'
+000016BA= 0D                       201      DC.B $D  
+000016BB= 0A                       202      DC.B $A
+000016BC= 09                       203      DC.B $9
+000016BD= 74 68 61 74 20 6E ...    204      DC.B 'that no error was detected. If memory problems are found, a message is'    
+00001703= 0D                       205      DC.B $D  
+00001704= 0A                       206      DC.B $A
+00001705= 09                       207      DC.B $9
+00001706= 64 69 73 70 6C 61 ...    208      DC.B 'displayed indicating  the address, the data stored, and the data read'
+0000174A= 0D                       209      DC.B $D  
+0000174B= 0A                       210      DC.B $A
+0000174C= 09                       211      DC.B $9
+0000174D= 6F 66 20 74 68 65 ...    212      DC.B 'of the failing memory.'
+00001763                           213  
+00001763                           214   
+00001763                           215   
+00001763= 0D                       216      DC.B $D  
+00001764= 0A                       217      DC.B $A
+00001765= 0A                       218      DC.B $A
+00001766= 42 53 43 48              219      DC.B 'BSCH'
+0000176A= 0D                       220      DC.B $D  
+0000176B= 0A                       221      DC.B $A
+0000176C= 09                       222      DC.B $9 
+0000176D= 54 68 65 20 42 53 ...    223      DC.B 'The BSCH (Block   Search) command is used to search a literal string in'
+000017B2= 0D                       224      DC.B $D  
+000017B3= 0A                       225      DC.B $A
+000017B4= 09                       226      DC.B $9
+000017B5= 61 20 6D 65 6D 6F ...    227      DC.B 'a memory block starting at <address1> through <address2> both inclusive.'
+000017FD= 0D                       228      DC.B $D  
+000017FE= 0A                       229      DC.B $A
+000017FF= 09                       230      DC.B $9
+00001800= 49 6E 20 42 53 43 ...    231      DC.B 'In BSCH command, if search finds matching data, the data and address(es)'
+00001848= 0D                       232      DC.B $D  
+00001849= 0A                       233      DC.B $A
+0000184A= 09                       234      DC.B $9
+0000184B= 6D 75 73 74 20 62 ...    235      DC.B 'must be displayed.' 
+0000185D                           236  
+0000185D                           237  
+0000185D= 0D                       238      DC.B $D  
+0000185E= 0A                       239      DC.B $A
+0000185F= 0A                       240      DC.B $A
+00001860= 47 4F                    241      DC.B 'GO'
+00001862= 0D                       242      DC.B $D  
+00001863= 0A                       243      DC.B $A
+00001864= 09                       244      DC.B $9 
+00001865= 54 68 65 20 47 4F ...    245      DC.B 'The GO command is used to start execution from a given address.'
+000018A4                           246  
+000018A4= 0D                       247      DC.B $D  
+000018A5= 0A                       248      DC.B $A
+000018A6= 0A                       249      DC.B $A
+000018A7= 44 46                    250      DC.B 'DF'
+000018A9= 0D                       251      DC.B $D  
+000018AA= 0A                       252      DC.B $A
+000018AB= 09                       253      DC.B $9 
+000018AC= 54 68 65 20 44 69 ...    254      DC.B 'The Display Formatted Registers(DF) command is used to display'
+000018EA= 0D                       255      DC.B $D  
+000018EB= 0A                       256      DC.B $A
+000018EC= 09                       257      DC.B $9
+000018ED= 74 68 65 20 4D 43 ...    258      DC.B 'the MC68000 processor registers. This command should display current'
+00001931= 0D                       259      DC.B $D  
+00001932= 0A                       260      DC.B $A
+00001933= 09                       261      DC.B $9
+00001934= 50 43 2C 20 53 52 ...    262      DC.B 'PC, SR,   US, SS and D, A registers.'
+00001956                           263      
+00001956= 0D                       264      DC.B $D  
+00001957= 0A                       265      DC.B $A
+00001958= 0A                       266      DC.B $A
+00001959= 45 58 49 54              267      DC.B 'EXIT'
+0000195D= 0D                       268      DC.B $D  
+0000195E= 0A                       269      DC.B $A
+0000195F= 09                       270      DC.B $9 
+00001960= 54 68 65 20 45 58 ...    271      DC.B 'The EXIT command terminates/exits your MONITOR program'
+00001996                           272  
+00001996                           273   
+00001996= 00                       274      DC.B 0
+00001997                           275  
+00001997                           276  
+00001997                           277      
+00002000                           278      ORG    $2000
+00002000                           279      
+00002000                           280  START:                  ; first instruction of program
+00002000                           281  
+00002000                           282  
+00002000                           283  pSTART   
+00002000  227C 00001000            284      MOVEA.L #PROMPT,A1 
+00002006  103C 000E                285      MOVE.B #14,D0
+0000200A  4E4F                     286      TRAP #15
+0000200C  43F8 4000                287      LEA $4000,A1
+00002010  103C 0002                288      MOVE.B #2,D0
+00002014  4E4F                     289      TRAP #15
+00002016                           290      
+00002016                           291      
+00002016                           292      *COMPARING INPUT TO THE MENU ITEMS*
+00002016  207C 0000102D            293      MOVE.L #HELPPROMPT,A0
+0000201C  4283                     294      CLR.L D3 ;COUNTER FOR REVERSING A1 TO USER INPUT
+0000201E                           295  COMPAREHELP
+0000201E  5283                     296      ADD.L #1,D3
+00002020  B308                     297      CMPM.B (A0)+,(A1)+
+00002022  6600 000E                298      BNE COMPAREMDSP
+00002026  0C28 0000 FFFF           299      CMPI.B #00,-1(A0)   ;CHECK IF THE BYTE JUST COMPARED WAS NULL TERMINATOR
+0000202C  66F0                     300      BNE COMPAREHELP
+0000202E  6100 017E                301      BSR HELPFUNCTION 
+00002032                           302  
+00002032                           303  COMPAREMDSP
+00002032  93C3                     304      SUB.L D3,A1
+00002034  4283                     305      CLR.L D3
+00002036  207C 00001032            306      MOVE.L #MDSPPROMPT,A0
+0000203C                           307  COMPAREMDSP2
+0000203C  5283                     308      ADD.L #1,D3
+0000203E  B308                     309      CMPM.B (A0)+,(A1)+
+00002040  6600 0032                310      BNE COMPARESORTW
+00002044  0C28 0020 FFFF           311      CMPI.B #32,-1(A0)  ;COMPARING LAST PART TO SPACE TO SEE IF THE STRING ENDS WITH A SPACE
+0000204A  66F0                     312      BNE COMPAREMDSP2
+0000204C                           313      ;CHECK FOR THE ARGUMENTS
+0000204C  4284                     314      CLR.L D4 ;FIRST ARG
+0000204E  4285                     315      CLR.L D5 ;SECOND ARG
+00002050                           316  CMPMDSPL1
+00002050  D819                     317      ADD.B (A1)+,D4   ; MOVE THE MEMORY LOCATION NUMBER TO D4
+00002052  0C11 0000                318      CMPI.B #0,(A1)  ;COMPARING LAST PART TO EMPTY STRNG
+00002056  6700 0166                319      BEQ MDSPFUNCTION1 ;FUNCTION FOR 1 ARG
+0000205A  0C11 0020                320      CMPI.B #32,(A1) ;COMPARING LAST PART TO SPACE
+0000205E  6700 0006                321      BEQ CMPMDSPL2
+00002062  E18C                     322      LSL.L #8,D4
+00002064  61EA                     323      BSR CMPMDSPL1
+00002066                           324  CMPMDSPL2
+00002066  DA19                     325      ADD.B (A1)+,D5   ; MOVE THE SECOND MEMORY LOCATION NUMBER TO D5
+00002068  0C11 0000                326      CMPI.B #0,(A1)  ;COMPARING LAST PART TO EMPTY STRNG
+0000206C  6700 01B4                327      BEQ MDSPFUNCTION2 ;FUNCTION FOR 2 ARG
+00002070  E18D                     328      LSL.L #8,D5
+00002072  61F2                     329      BSR CMPMDSPL2
+00002074                           330      
+00002074                           331     
+00002074                           332  COMPARESORTW
+00002074  93C3                     333      SUB.L D3,A1
+00002076  4283                     334      CLR.L D3
+00002078  207C 00001037            335      MOVE.L #SORTWPROMPT,A0
+0000207E                           336  COMPARESORTW2
+0000207E  5283                     337      ADD.L #1,D3
+00002080  B308                     338      CMPM.B (A0)+,(A1)+
+00002082  6600 000E                339      BNE COMPAREMM
+00002086  0C28 0000 FFFF           340      CMPI.B #0,-1(A0)
+0000208C  66F0                     341      BNE COMPARESORTW2
+0000208E  6100 01C6                342      BSR SORTWFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+00002092                           343  
+00002092                           344  COMPAREMM
+00002092  93C3                     345      SUB.L D3,A1
+00002094  4283                     346      CLR.L D3
+00002096  207C 0000103D            347      MOVE.L #MMPROMPT,A0
+0000209C                           348  COMPAREMM2
+0000209C  5283                     349      ADD.L #1,D3
+0000209E  B308                     350      CMPM.B (A0)+,(A1)+
+000020A0  6600 000E                351      BNE COMPAREMS
+000020A4  0C28 0000 FFFF           352      CMPI.B #0,-1(A0)
+000020AA  66F0                     353      BNE COMPAREMM2
+000020AC  6100 01B8                354      BSR MMFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+000020B0                           355  
+000020B0                           356  COMPAREMS
+000020B0  93C3                     357      SUB.L D3,A1
+000020B2  4283                     358      CLR.L D3
+000020B4  207C 00001040            359      MOVE.L #MSPROMPT,A0
+000020BA                           360  COMPAREMS2
+000020BA  5283                     361      ADD.L #1,D3
+000020BC  B308                     362      CMPM.B (A0)+,(A1)+
+000020BE  6600 000E                363      BNE COMPAREBF
+000020C2  0C28 0000 FFFF           364      CMPI.B #0,-1(A0)
+000020C8  66F0                     365      BNE COMPAREMS2
+000020CA  6100 01AA                366      BSR MSFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+000020CE                           367  
+000020CE                           368  COMPAREBF
+000020CE  93C3                     369      SUB.L D3,A1
+000020D0  4283                     370      CLR.L D3
+000020D2  207C 00001043            371      MOVE.L #BFPROMPT,A0
+000020D8                           372  COMPAREBF2
+000020D8  5283                     373      ADD.L #1,D3
+000020DA  B308                     374      CMPM.B (A0)+,(A1)+
+000020DC  6600 000E                375      BNE COMPAREBMOV
+000020E0  0C28 0000 FFFF           376      CMPI.B #0,-1(A0)
+000020E6  66F0                     377      BNE COMPAREBF2
+000020E8  6100 019C                378      BSR BFFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+000020EC                           379  
+000020EC                           380  COMPAREBMOV
+000020EC  93C3                     381      SUB.L D3,A1
+000020EE  4283                     382      CLR.L D3
+000020F0  207C 00001046            383      MOVE.L #BMOVPROMPT,A0
+000020F6                           384  COMPAREBMOV2
+000020F6  5283                     385      ADD.L #1,D3
+000020F8  B308                     386      CMPM.B (A0)+,(A1)+
+000020FA  6600 000E                387      BNE COMPAREBTST
+000020FE  0C28 0000 FFFF           388      CMPI.B #0,-1(A0)
+00002104  66F0                     389      BNE COMPAREBMOV2
+00002106  6100 018E                390      BSR BMOVFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+0000210A                           391  
+0000210A                           392  COMPAREBTST
+0000210A  93C3                     393      SUB.L D3,A1
+0000210C  4283                     394      CLR.L D3
+0000210E  207C 0000104B            395      MOVE.L #BTSTPROMPT,A0
+00002114                           396  COMPAREBTST2
+00002114  5283                     397      ADD.L #1,D3
+00002116  B308                     398      CMPM.B (A0)+,(A1)+
+00002118  6600 000C                399      BNE COMPAREBSCH
+0000211C  0C20 0000                400      CMPI.B #0,-(A0)
+00002120  66F2                     401      BNE COMPAREBTST2
+00002122  6100 0182                402      BSR BTSTFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+00002126                           403  
+00002126                           404  COMPAREBSCH
+00002126  93C3                     405      SUB.L D3,A1
+00002128  4283                     406      CLR.L D3
+0000212A  207C 00001050            407      MOVE.L #BSCHPROMPT,A0
+00002130                           408  COMPAREBSCH2
+00002130  5283                     409      ADD.L #1,D3
+00002132  B308                     410      CMPM.B (A0)+,(A1)+
+00002134  6600 000E                411      BNE COMPAREGO
+00002138  0C28 0000 FFFF           412      CMPI.B #0,-1(A0)
+0000213E  66F0                     413      BNE COMPAREBSCH2
+00002140  6100 0174                414      BSR BSCHFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+00002144                           415  
+00002144                           416  COMPAREGO
+00002144  93C3                     417      SUB.L D3,A1
+00002146  4283                     418      CLR.L D3
+00002148  207C 00001055            419      MOVE.L #GOPROMPT,A0
+0000214E                           420  COMPAREGO2
+0000214E  5283                     421      ADD.L #1,D3
+00002150  B308                     422      CMPM.B (A0)+,(A1)+
+00002152  6600 000E                423      BNE COMPAREDF
+00002156  0C28 0000 FFFF           424      CMPI.B #0,-1(A0)
+0000215C  66F0                     425      BNE COMPAREGO2
+0000215E  6100 0166                426      BSR GOFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+00002162                           427  
+00002162                           428  COMPAREDF
+00002162  93C3                     429      SUB.L D3,A1
+00002164  4283                     430      CLR.L D3
+00002166  207C 00001058            431      MOVE.L #DFPROMPT,A0
+0000216C                           432  COMPAREDF2
+0000216C  5283                     433      ADD.L #1,D3
+0000216E  B308                     434      CMPM.B (A0)+,(A1)+
+00002170  6600 000E                435      BNE COMPAREEXIT
+00002174  0C28 0000 FFFF           436      CMPI.B #0,-1(A0)
+0000217A  66F0                     437      BNE COMPAREDF2
+0000217C  6100 0158                438      BSR DFFUNCTION ;CHANGE THIS WHEN YOU IMPLEMENT THE FUNCTION
+00002180                           439  
+00002180                           440      
+00002180                           441  COMPAREEXIT
+00002180  93C3                     442      SUB.L D3,A1
+00002182  4283                     443      CLR.L D3
+00002184  207C 0000105B            444      MOVE.L #EXITPROMPT,A0
+0000218A                           445  COMPAREEXIT2
+0000218A  5283                     446      ADD.L #1,D3
+0000218C  B308                     447      CMPM.B (A0)+,(A1)+
+0000218E  6600 000E                448      BNE FAIL
+00002192  0C28 0000 FFFF           449      CMPI.B #0,-1(A0)
+00002198  66F0                     450      BNE COMPAREEXIT2
+0000219A  6100 014A                451      BSR EXITFUNCTION 
+0000219E                           452      
+0000219E                           453      
+0000219E                           454      
+0000219E                           455  *WHEN INPUT DOESNT FIT THE CRITERIA*    
+0000219E                           456  FAIL
+0000219E  227C 0000100D            457      MOVEA.L #NOPROMPT,A1     
+000021A4  103C 000D                458      MOVE.B #13,D0
+000021A8  4E4F                     459      TRAP #15
+000021AA  6000 FE54                460      BRA pSTART
+000021AE                           461        
+000021AE                           462  HELPFUNCTION
+000021AE  227C 00001066            463      MOVEA.L #HELP,A1     
+000021B4  103C 000D                464      MOVE.B #13,D0
+000021B8  4E4F                     465      TRAP #15
+000021BA  6000 FE44                466      BRA pSTART
+000021BE                           467      
+000021BE                           468  MDSPFUNCTION1 ;argument passed as D4, PRINT FROM D4 TO D5
+000021BE  283C 00002000            469      MOVE.L #$2000,D4
+000021C4                           470      ;DISPLAY EVERYTHIGN FROM D4 FOR NOW 2000 TO 2016\
+000021C4  2644                     471      MOVE.L D4,A3
+000021C6  D7FC 0000000F            472      ADD.L #$F,A3 ;ENDING 
+000021CC  2444                     473      MOVE.L D4,A2 ;BEGGINING
+000021CE                           474  MDSPFUNCTION1L1 
+000021CE                           475      ;PRINT MEMLOC
+000021CE  220A                     476      MOVE.L A2,D1
+000021D0  6100 011A                477      BSR HEXTOASCII 
+000021D4                           478       
+000021D4  4841                     479      SWAP D1
+000021D6                           480      
+000021D6  E159                     481      ROL #8,D1
+000021D8  103C 0006                482      MOVE.B #6,D0
+000021DC  4E4F                     483      TRAP #15
+000021DE                           484      
+000021DE  E159                     485      ROL #8,D1
+000021E0  103C 0006                486      MOVE.B #6,D0
+000021E4  4E4F                     487      TRAP #15
+000021E6                           488      
+000021E6  4841                     489      SWAP D1
+000021E8  E159                     490      ROL #8,D1
+000021EA  103C 0006                491      MOVE.B #6,D0
+000021EE  4E4F                     492      TRAP #15
+000021F0                           493      
+000021F0  E159                     494      ROL #8,D1
+000021F2  103C 0006                495      MOVE.B #6,D0
+000021F6  4E4F                     496      TRAP #15
+000021F8                           497  
+000021F8                           498      
+000021F8                           499      ;PRINT SEMICOLON
+000021F8  227C 00001060            500      MOVEA.L #SEMICOLONSEP,A1     
+000021FE  103C 000E                501      MOVE.B #14,D0
+00002202  4E4F                     502      TRAP #15
+00002204                           503      
+00002204                           504      ;PRINT CONTENT
+00002204  4281                     505      CLR.L D1
+00002206  121A                     506      MOVE.B (A2)+,D1
+00002208  103C 0003                507      MOVE.B #3,D0
+0000220C  4E4F                     508      TRAP #15
+0000220E                           509      
+0000220E                           510      ;PRINT SEMICOLON
+0000220E  227C 00001064            511      MOVEA.L #SPACE,A1     
+00002214  103C 000D                512      MOVE.B #13,D0
+00002218  4E4F                     513      TRAP #15
+0000221A                           514      
+0000221A                           515      
+0000221A  B7CA                     516      CMPA.L A2,A3
+0000221C  6EB0                     517      BGT MDSPFUNCTION1L1
+0000221E                           518      
+0000221E                           519  
+0000221E                           520      
+0000221E  6000 FDE0                521      BRA pSTART
+00002222                           522  
+00002222                           523  MDSPFUNCTION2 ;argument passed as D4, PRINT FROM D4 TO D5
+00002222  283C 00002000            524      MOVE.L #$2000,D4
+00002228                           525      ;DISPLAY EVERYTHIGN FROM D4 FOR NOW 2000 TO 2016
+00002228  2444                     526      MOVE.L D4,A2
+0000222A  D5FC 0000000F            527      ADD.L #$F,A2 ;ENDING 
+00002230                           528      ;MOVE.L D4,A1
+00002230                           529  MDSPFUNCTION2L1 
+00002230                           530      ;PRINT MEMLOC
+00002230  2209                     531      MOVE.L A1,D1
+00002232  103C 0003                532      MOVE.B #3,D0
+00002236  4E4F                     533      TRAP #15
+00002238                           534      
+00002238                           535      ;PRINT SEMICOLON
+00002238  227C 00001060            536      MOVEA.L #SEMICOLONSEP,A1     
+0000223E  103C 000E                537      MOVE.B #14,D0
+00002242  4E4F                     538      TRAP #15
+00002244                           539      
+00002244                           540      ;PRINT CONTENT
+00002244  4281                     541      CLR.L D1
+00002246  1219                     542      MOVE.B (A1)+,D1
+00002248  103C 000D                543      MOVE.B #13,D0
+0000224C  4E4F                     544      TRAP #15
+0000224E                           545      
+0000224E  B5C9                     546      CMPA.L A1,A2
+00002250  6DDE                     547      BLT MDSPFUNCTION2L1
+00002252                           548      
+00002252  6000 FDAC                549      BRA pSTART
+00002256                           550  
+00002256                           551  
+00002256                           552  SORTWFUNCTION ;argument passed as D4 to d5
+00002256  227C 00001037            553      MOVEA.L #SORTWPROMPT,A1     
+0000225C  103C 000D                554      MOVE.B #13,D0
+00002260  4E4F                     555      TRAP #15
+00002262  6000 FD9C                556      BRA pSTART
+00002266                           557  
+00002266                           558  MMFUNCTION
+00002266  227C 0000103D            559      MOVEA.L #MMPROMPT,A1     
+0000226C  103C 000D                560      MOVE.B #13,D0
+00002270  4E4F                     561      TRAP #15
+00002272  6000 FD8C                562      BRA pSTART
+00002276                           563  
+00002276                           564  MSFUNCTION
+00002276  227C 00001040            565      MOVEA.L #MSPROMPT,A1     
+0000227C  103C 000D                566      MOVE.B #13,D0
+00002280  4E4F                     567      TRAP #15
+00002282  6000 FD7C                568      BRA pSTART
+00002286                           569  
+00002286                           570  BFFUNCTION
+00002286  227C 00001043            571      MOVEA.L #BFPROMPT,A1     
+0000228C  103C 000D                572      MOVE.B #13,D0
+00002290  4E4F                     573      TRAP #15
+00002292  6000 FD6C                574      BRA pSTART
+00002296                           575  
+00002296                           576  BMOVFUNCTION
+00002296  227C 00001046            577      MOVEA.L #BMOVPROMPT,A1     
+0000229C  103C 000D                578      MOVE.B #13,D0
+000022A0  4E4F                     579      TRAP #15
+000022A2  6000 FD5C                580      BRA pSTART
+000022A6                           581  
+000022A6                           582  BTSTFUNCTION
+000022A6  227C 0000104B            583      MOVEA.L #BTSTPROMPT,A1     
+000022AC  103C 000D                584      MOVE.B #13,D0
+000022B0  4E4F                     585      TRAP #15
+000022B2  6000 FD4C                586      BRA pSTART
+000022B6                           587  
+000022B6                           588  BSCHFUNCTION
+000022B6  227C 00001050            589      MOVEA.L #BSCHPROMPT,A1     
+000022BC  103C 000D                590      MOVE.B #13,D0
+000022C0  4E4F                     591      TRAP #15
+000022C2  6000 FD3C                592      BRA pSTART
+000022C6                           593  
+000022C6                           594  GOFUNCTION
+000022C6  227C 00001055            595      MOVEA.L #GOPROMPT,A1     
+000022CC  103C 000D                596      MOVE.B #13,D0
+000022D0  4E4F                     597      TRAP #15
+000022D2  6000 FD2C                598      BRA pSTART
+000022D6                           599  
+000022D6                           600  DFFUNCTION
+000022D6  227C 00001058            601      MOVEA.L #DFPROMPT,A1     
+000022DC  103C 000D                602      MOVE.B #13,D0
+000022E0  4E4F                     603      TRAP #15
+000022E2  6000 FD1C                604      BRA pSTART
+000022E6                           605  
+000022E6                           606  EXITFUNCTION
+000022E6  103C 0009                607      MOVE.B #9,D0
+000022EA  4E4F                     608      TRAP #15
+000022EC                           609      
+000022EC                           610      
+000022EC                           611  ********* HELPER FUNCTIONS **********
+000022EC                           612  
+000022EC                           613  HEXTOASCII
+000022EC                           614  *-----------------------------------------------------------
+000022EC                           615  * Title      : HEX to ASCII CONVERTER
+000022EC                           616  * Written by : METE MORRIS
+000022EC                           617  * Date       : 
+000022EC                           618  * Description: CONVERTS HEX WORD READ TO ASCII, REGISTERS MODIFIED ARE D2,D3,D4,D5 RETURNS D1
+000022EC                           619  *-----------------------------------------------------------
+000022EC                           620  * Put program code here
+000022EC  4282                     621       CLR.L D2
+000022EE  4283                     622       CLR.L D3
+000022F0  4284                     623       CLR.L D4
+000022F2  4285                     624       CLR.L D5
+000022F4                           625       
+000022F4                           626       ;FIRST NO
+000022F4  1401                     627       MOVE.B D1,D2
+000022F6  0882 0004                628       BCLR #4,D2
+000022FA  0882 0005                629       BCLR #5,D2
+000022FE  0882 0006                630       BCLR #6,D2
+00002302  0882 0007                631       BCLR #7,D2
+00002306                           632       
+00002306                           633       ;SECOND NO
+00002306  E849                     634       LSR #4,D1
+00002308  1601                     635       MOVE.B D1,D3
+0000230A  0883 0004                636       BCLR #4,D3
+0000230E  0883 0005                637       BCLR #5,D3
+00002312  0883 0006                638       BCLR #6,D3
+00002316  0883 0007                639       BCLR #7,D3 
+0000231A                           640       
+0000231A                           641       ;THIRD NO
+0000231A  E849                     642       LSR #4,D1
+0000231C  1801                     643       MOVE.B D1,D4
+0000231E  0884 0004                644       BCLR #4,D4
+00002322  0884 0005                645       BCLR #5,D4
+00002326  0884 0006                646       BCLR #6,D4
+0000232A  0884 0007                647       BCLR #7,D4 
+0000232E                           648       
+0000232E                           649       ;FOURTH NO
+0000232E  E849                     650       LSR #4,D1
+00002330  1A01                     651       MOVE.B D1,D5
+00002332  0885 0004                652       BCLR #4,D5
+00002336  0885 0005                653       BCLR #5,D5
+0000233A  0885 0006                654       BCLR #6,D5
+0000233E  0885 0007                655       BCLR #7,D5 
+00002342                           656      
+00002342                           657      
+00002342                           658      ;CONVERT FIRST NO TO ASCII
+00002342  B43C 0009                659       CMP.B #9,D2
+00002346  6E00 000C                660       BGT LARGER1
+0000234A  0682 00000030            661       ADD.L #$30,D2
+00002350  6000 0008                662       BRA SECOND
+00002354                           663  LARGER1
+00002354  0682 00000037            664       ADD.L #$37,D2
+0000235A                           665       
+0000235A                           666  SECOND     
+0000235A                           667      ;CONVERT SECOND NO TO ASCII
+0000235A  B63C 0009                668       CMP.B #9,D3
+0000235E  6E00 000C                669       BGT LARGER2
+00002362  0683 00000030            670       ADD.L #$30,D3
+00002368  6000 0008                671       BRA THIRD
+0000236C                           672  LARGER2
+0000236C  0683 00000037            673       ADD.L #$37,D3
+00002372                           674  
+00002372                           675  THIRD     
+00002372                           676      ;CONVERT THIRD NO TO ASCII
+00002372  B83C 0009                677       CMP.B #9,D4
+00002376  6E00 000C                678       BGT LARGER3
+0000237A  0684 00000030            679       ADD.L #$30,D4
+00002380  6000 0008                680       BRA FOURTH
+00002384                           681  LARGER3
+00002384  0684 00000037            682       ADD.L #$37,D4
+0000238A                           683  
+0000238A                           684  FOURTH    
+0000238A                           685      ;CONVERT FOURTH NO TO ASCII
+0000238A  BA3C 0009                686       CMP.B #9,D5
+0000238E  6E00 000C                687       BGT LARGER4
+00002392  0685 00000030            688       ADD.L #$30,D5
+00002398  6000 0008                689       BRA ADDFINISH
+0000239C                           690  LARGER4
+0000239C  0685 00000037            691       ADD.L #$37,D5
+000023A2                           692       
+000023A2                           693      
+000023A2                           694      ;ROTATE AND ADD THE NUMBERS     
+000023A2                           695  ADDFINISH
+000023A2  4281                     696       CLR.L D1
+000023A4  D282                     697       ADD.L D2,D1
+000023A6                           698       
+000023A6  E14B                     699       LSL #8,D3
+000023A8  D283                     700       ADD.L D3,D1
+000023AA                           701       
+000023AA  4844                     702       SWAP.W D4
+000023AC  D284                     703       ADD.L D4,D1
+000023AE                           704       
+000023AE  E14D                     705       LSL #8,D5
+000023B0  4845                     706       SWAP.W D5
+000023B2  D285                     707       ADD.L D5,D1
+000023B4                           708       
+000023B4  4E75                     709       RTS    
+000023B6                           710  
+000023B6                           711  
+000023B6                           712  
+000023B6                           713  
+000023B6                           714  
+000023B6                           715  
+000023B6                           716      END    START        ; last line of source
 
 No errors detected
 No warnings generated
@@ -521,56 +726,72 @@ No warnings generated
 SYMBOL TABLE INFORMATION
 Symbol-name         Value
 -------------------------
-BFFUNCTION          21DC
+ADDFINISH           23A2
+BFFUNCTION          2286
 BFPROMPT            1043
-BMOVFUNCTION        21EC
+BMOVFUNCTION        2296
 BMOVPROMPT          1046
-BSCHFUNCTION        220C
+BSCHFUNCTION        22B6
 BSCHPROMPT          1050
-BTSTFUNCTION        21FC
+BTSTFUNCTION        22A6
 BTSTPROMPT          104B
-COMPAREBF           20AA
-COMPAREBF2          20B4
-COMPAREBMOV         20C8
-COMPAREBMOV2        20D2
-COMPAREBSCH         2104
-COMPAREBSCH2        210E
-COMPAREBTST         20E6
-COMPAREBTST2        20F0
-COMPAREDF           2140
-COMPAREDF2          214A
-COMPAREEXIT         215E
-COMPAREEXIT2        2168
-COMPAREGO           2122
-COMPAREGO2          212C
+CMPMDSPL1           2050
+CMPMDSPL2           2066
+COMPAREBF           20CE
+COMPAREBF2          20D8
+COMPAREBMOV         20EC
+COMPAREBMOV2        20F6
+COMPAREBSCH         2126
+COMPAREBSCH2        2130
+COMPAREBTST         210A
+COMPAREBTST2        2114
+COMPAREDF           2162
+COMPAREDF2          216C
+COMPAREEXIT         2180
+COMPAREEXIT2        218A
+COMPAREGO           2144
+COMPAREGO2          214E
 COMPAREHELP         201E
 COMPAREMDSP         2032
 COMPAREMDSP2        203C
-COMPAREMM           206E
-COMPAREMM2          2078
-COMPAREMS           208C
-COMPAREMS2          2096
-COMPARESORTW        2050
-COMPARESORTW2       205A
-DFFUNCTION          222C
+COMPAREMM           2092
+COMPAREMM2          209C
+COMPAREMS           20B0
+COMPAREMS2          20BA
+COMPARESORTW        2074
+COMPARESORTW2       207E
+DFFUNCTION          22D6
 DFPROMPT            1058
-EXITFUNCTION        223C
+EXITFUNCTION        22E6
 EXITPROMPT          105B
-FAIL                217C
-GOFUNCTION          221C
+FAIL                219E
+FOURTH              238A
+GOFUNCTION          22C6
 GOPROMPT            1055
-HELP                1060
-HELPFUNCTION        218C
+HELP                1066
+HELPFUNCTION        21AE
 HELPPROMPT          102D
-MDSPFUNCTION        219C
+HEXTOASCII          22EC
+LARGER1             2354
+LARGER2             236C
+LARGER3             2384
+LARGER4             239C
+MDSPFUNCTION1       21BE
+MDSPFUNCTION1L1     21CE
+MDSPFUNCTION2       2222
+MDSPFUNCTION2L1     2230
 MDSPPROMPT          1032
-MMFUNCTION          21BC
+MMFUNCTION          2266
 MMPROMPT            103D
-MSFUNCTION          21CC
+MSFUNCTION          2276
 MSPROMPT            1040
 NOPROMPT            100D
 PROMPT              1000
 PSTART              2000
-SORTWFUNCTION       21AC
+SECOND              235A
+SEMICOLONSEP        1060
+SORTWFUNCTION       2256
 SORTWPROMPT         1037
+SPACE               1064
 START               2000
+THIRD               2372
