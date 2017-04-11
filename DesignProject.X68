@@ -788,11 +788,117 @@ MMFUNCTIONL2 ;FOR WORD OPERATION MM
 
 
 
-MMFUNCTIONL3 
-    MOVEA.L #SEMICOLONSEP,A1     
-    MOVE.B #13,D0
+MMFUNCTIONL3 ;FOR LONG WORD MM OPERATION
+    ;PRINT MEMLOC
+    MOVE.L A2,D1
+    BSR HEXTOASCII 
+     
+    SWAP D1
+    
+    ROL #8,D1
+    MOVE.B #6,D0
     TRAP #15
-    BRA pSTART
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    SWAP D1
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+
+    
+    ;PRINT SEMICOLON
+    MOVEA.L #SEMICOLONSEP,A1     
+    MOVE.B #14,D0
+    TRAP #15
+    
+    ;PRINT CONTENT
+    CLR.L D1
+    MOVE.W (A2)+,D1
+    BSR HEXTOASCII 
+     
+    
+    SWAP D1
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    SWAP D1
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    ;PRINT SECOND WORD
+    ;PRINT CONTENT
+    CLR.L D1
+    MOVE.W (A2)+,D1
+    BSR HEXTOASCII 
+     
+    
+    SWAP D1
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    SWAP D1
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+    
+    ROL #8,D1
+    MOVE.B #6,D0
+    TRAP #15
+
+    
+    
+    ;PRINT LINEPROMPT,
+    MOVEA.L #LINEPROMPT,A1     
+    MOVE.B #14,D0
+    TRAP #15
+    
+    ;PROMPT FOR INPUT,CONTINUE UNLESS IT IS DOT
+    LEA $5000,A1
+    MOVE.B #2,D0
+    TRAP #15
+    
+    *COMPARING INPUT TO THE MENU ITEMS*
+    ;COMPARING TO DOT
+    CMP.B #$2E,(A1) ;2E IS THE DOT
+    BEQ pSTART ;if input is dot exit
+    ;IF INPUT IS EMPTY MOVE ON TO THE NEXT BIT
+    CMP.B #00,(A1)
+    BEQ MMFUNCTIONL3
+    
+    ;IF INPUT ARE NEITHER READ THE ENTERED LINE CONVERT TO HEXT AND STORE
+    MOVE.L (A1)+,D4
+    BSR ASCIITOHEX
+    MOVE.W D4,-4(A2)
+    ;PRINT SECOND WORD
+    MOVE.L (A1),D4
+    BSR ASCIITOHEX
+    MOVE.W D4,-2(A2)
+    
+    BRA MMFUNCTIONL3
+
+
+
     
 
 MSFUNCTION
