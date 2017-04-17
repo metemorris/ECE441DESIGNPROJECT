@@ -1,9 +1,8 @@
-*-----------------------------------------------------------
-* Title      : Design Project v1
+  *-----------------------------------------------------------
+* Title      : Design Project
 * Written by : Mete Morris
 * Date       : 03.11.2017
 * Description: Prints out prompt, does help(not finished) and exit
-* To-Do      : exit prompt when null character read
 *-----------------------------------------------------------
     ORG    $1000
 *COMMAND LINE PROMPT*  
@@ -14,6 +13,68 @@ PROMPT:
 NOPROMPT:
     DC.B 'WRONG ENTRY. TYPE HELP FOR HELP'
     DC.B 0
+
+*DF LOOKUPS*
+PCDF
+    DC.B 'PC= '
+    DC.B 0
+SRDF
+    DC.B 'SR= '
+    DC.B 0
+USPDF
+    DC.B 'USP= '
+    DC.B 0
+SSPDF
+    DC.B 'SSP(A7)= '
+    DC.B 0
+A0DF 
+    DC.B 'A0= '
+    DC.B 0
+A1DF 
+    DC.B 'A1= '
+    DC.B 0
+A2DF 
+    DC.B 'A2= '
+    DC.B 0
+A3DF 
+    DC.B 'A3= '
+    DC.B 0
+A4DF 
+    DC.B 'A4= '
+    DC.B 0
+A5DF 
+    DC.B 'A5= '
+    DC.B 0
+A6DF 
+    DC.B 'A6= '
+    DC.B 0
+D0DF 
+    DC.B 'D0= '
+    DC.B 0
+D1DF 
+    DC.B 'D1= '
+    DC.B 0
+D2DF 
+    DC.B 'D2= '
+    DC.B 0
+D3DF 
+    DC.B 'D3= '
+    DC.B 0
+D4DF 
+    DC.B 'D4= '
+    DC.B 0
+D5DF 
+    DC.B 'D5= '
+    DC.B 0
+D6DF 
+    DC.B 'D6= '
+    DC.B 0
+D7DF 
+    DC.B 'D7= '
+    DC.B 0
+
+
+
 
 
 *MENU OPTIONS LOOKUP*
@@ -306,9 +367,11 @@ HELP:
     ORG    $2000
     
 START:                  ; first instruction of program
+    ;INITIALIZE STACK POINTER
+     
 
-
-pSTART   
+pSTART
+    MOVEM.L A0-A6/D0-D7,-(SP)   
     MOVEA.L #PROMPT,A1 
     MOVE.B #14,D0
     TRAP #15
@@ -677,12 +740,14 @@ FAIL
     MOVEA.L #NOPROMPT,A1     
     MOVE.B #13,D0
     TRAP #15
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
       
 HELPFUNCTION
     MOVEA.L #HELP,A1     
     MOVE.B #13,D0
     TRAP #15
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
     
 MDSPFUNCTION1 ;argument passed as D4, PRINT FROM D4 TO D5
@@ -746,7 +811,7 @@ MDSPFUNCTION1L1
     BGT MDSPFUNCTION1L1
     
 
-    
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 
 MDSPFUNCTION2 ;argument passed as D4, PRINT FROM D4 TO D5
@@ -811,7 +876,7 @@ MDSPFUNCTION2L1
     BGT MDSPFUNCTION2L1
     
 
-    
+    MOVEM.L (SP)+, A0-A6/D0-D7    
     BRA pSTART
 
 
@@ -838,6 +903,7 @@ SORTWL2
     SUBQ.L #2,A0
     CMP.L A0,A1
     BGE SORTWL2 ;RECHECK
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 SORTWL1
     MOVE.L -(A0),D0
@@ -854,6 +920,7 @@ SORTWLA2
     SUBQ.L #2,A0
     CMP.L A0,A1
     BGE SORTWLA2 ;RECHECK
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 SORTWLA1
     MOVE.L -(A0),D0
@@ -1147,9 +1214,11 @@ MSFUNCTIONL1
     MOVE.L D5,D4 
     BSR ASCIITOHEX
     MOVE.W D4,(A2)
+    MOVEM.L (SP)+,A0-A6/D0-D7
     BRA pSTART
 MSFUNCTIONL2
     MOVE.L D5,(A2)
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
     
     
@@ -1169,7 +1238,8 @@ BFFUNCTIONL1
     MOVE.W D6,(A2)+
     CMPA.L A2,A3
     BGT BFFUNCTIONL1
-  ;WHEN DONE  
+  ;WHEN DONE
+    MOVEM.L (SP)+,A0-A6/D0-D7  
     BRA pSTART
 
 BMOVFUNCTION ;D4 IS THE START,D5 IS THE END, D6 IS THE LOCATION WE ARE WRITING TO 
@@ -1187,7 +1257,8 @@ BMOVFUNCTIONL1
     MOVE.B (A2)+,(A4)+
     CMPA.L A2,A3
     BGT BMOVFUNCTIONL1
-    ;WHEN DONE  
+    ;WHEN DONE
+    MOVEM.L (SP)+, A0-A6/D0-D7  
     BRA pSTART
 
 BTSTFUNCTION
@@ -1209,6 +1280,7 @@ BTSTFUNCTIONL1
     MOVEA.L #BTSTSUCCESS,A1     
     MOVE.B #13,D0
     TRAP #15
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 BTSTERROR
     MOVEA.L #BTSTFAIL,A1     
@@ -1315,6 +1387,7 @@ BTSTERROR
     MOVE.B #13,D0
     TRAP #15
     
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 
 
@@ -1339,6 +1412,7 @@ BSCHFUNCTIONL1
     MOVEA.L #SEARCHFAIL,A1     
     MOVE.B #13,D0
     TRAP #15
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 BSCHEQUAL
     MOVEA.L #SEARCHSUCCESS,A1     
@@ -1412,21 +1486,318 @@ BSCHEQUAL
     MOVE.B #13,D0
     TRAP #15
     
+    MOVEM.L (SP)+, A0-A6/D0-D7
     BRA pSTART
 
 
 
 GOFUNCTION ;D4 IS THE MEMLOC TO EXECUTE
     BSR ASCIITOHEX
-    MOVEM.L D0-D7/A0-A7,-(SP)
     MOVE.L D4,A1
-    JMP (A1)    
+    JMP (A1)
+    MOVEM.L (SP)+, A0-A6/D0-D7    
     BRA pSTART
 
 DFFUNCTION
-    MOVEA.L #DFPROMPT,A1     
+    ;PRINT PC
+    MOVEA.L #PCDF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+PCHERE  
+    MOVE #PCHERE,D1
+    MOVE.B #16,D2
+    ;MOVEA.L PC,A1     
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
     MOVE.B #13,D0
     TRAP #15
+    
+    ;PRINT SR
+    MOVEA.L #SRDF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE SR,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+    
+    ;PRINT SSP
+    MOVEA.L #SSPDF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A7,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+    
+    ;PRINT USP
+    MOVEA.L #USPDF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE.L USP,A1
+    MOVE.L A1,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+    
+    ;load values from memory 
+    MOVEM.L (SP)+, A0-A6/D0-D7 
+    
+    ;save it to a mem loc
+    MOVE.L D0,$8000
+    MOVE.L D1,$8004
+    MOVE.L D2,$8008
+    MOVE.L A1,$8012
+    ;read memlocs and print a and d regs
+    ;D0
+    MOVEA.L #D0DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE $8000,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+    
+     ;D1
+    MOVEA.L #D1DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE $8004,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+
+    ;D2
+    MOVEA.L #D2DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE $8008,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;D3
+    MOVEA.L #D3DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE D3,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;D4
+    MOVEA.L #D4DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE D4,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+    ;D5
+    MOVEA.L #D5DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE D5,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;D6
+    MOVEA.L #D6DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE D6,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;D7
+    MOVEA.L #D7DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE D7,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+    
+    
+    ;A0
+    MOVEA.L #A0DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A0,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+
+    ;A1
+    MOVEA.L #A1DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE $8012,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;A2
+    MOVEA.L #A2DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A2,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;A3
+    MOVEA.L #A4DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A3,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+    ;A4
+    MOVEA.L #A4DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A4,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;A5
+    MOVEA.L #A5DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A5,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+
+
+    ;A6
+    MOVEA.L #A6DF,A1     
+    MOVE.B #14,D0
+    TRAP #15
+
+    MOVE A6,D1
+    MOVE.B #16,D2    
+    MOVE.B #15,D0
+    TRAP #15
+
+    MOVEA.L #SPACE,A1     
+    MOVE.B #13,D0
+    TRAP #15
+    
+    
+    ;MOVING OLD VALUES BACK TO D0,D1,D2 AND A1
+    MOVE.L $8000,D0
+    MOVE.L $8004,D1
+    MOVE.L $8008,D2
+    MOVE.L $8012,A1
+   
+
+    
     BRA pSTART
 
 EXITFUNCTION
@@ -1618,6 +1989,9 @@ FINISH2
 
 
     END    START        ; last line of source
+
+
+
 
 
 
