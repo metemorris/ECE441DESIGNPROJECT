@@ -1,6 +1,6 @@
 00002000 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.15.04
-Created On: 4/25/2017 10:54:40 PM
+Created On: 4/25/2017 11:20:04 PM
 
 00000000                             1    *-----------------------------------------------------------
 00000000                             2  * Title      : Design Project
@@ -2587,7 +2587,7 @@ Created On: 4/25/2017 10:54:40 PM
 0000A00C                          2583  
 0000A00C                          2584  BUSERRORGENERATE
 0000A00C  203C 000000FF           2585      MOVE.L #$FF,D0
-0000A012  1039 00FFFFFF           2586      MOVE.B $FFFFFF,D0
+0000A012  1039 00A00000           2586      MOVE.B $A00000,D0
 0000A018  60F2                    2587      BRA BUSERRORGENERATE    
 0000A01A                          2588  PRIVILEGEVIOLATIONGENERATE
 0000A01A  027C 0700               2589      ANDI.W #$0700,SR
